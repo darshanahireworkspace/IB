@@ -12667,9 +12667,6 @@ a:focus-visible {
    MOBILE BOTTOM NAV — DESKTOP HIDDEN
 ========================================================= */
 
-.mobile-bottom-navigation {
-  display: none;
-}
 
 
 /* =========================================================
@@ -12842,182 +12839,6 @@ a:focus-visible {
   }
 
 
-  /* =====================================================
-     FIXED MOBILE BOTTOM NAVIGATION
-  ===================================================== */
-
-  .mobile-bottom-navigation {
-    position: fixed;
-
-    right: 10px;
-    bottom:
-      max(10px, env(safe-area-inset-bottom));
-    left: 10px;
-
-    z-index: 5000;
-
-    min-height: 68px;
-
-    padding:
-      7px
-      5px;
-
-    display: grid;
-
-    grid-template-columns:
-      repeat(5, 1fr);
-
-    align-items: end;
-
-    color: #5e5148;
-
-    border:
-      1px solid rgba(51, 35, 25, 0.12);
-
-    border-radius: 20px;
-
-    background:
-      rgba(255, 252, 247, 0.94);
-
-    box-shadow:
-      0 18px 55px rgba(31, 20, 13, 0.2);
-
-    -webkit-backdrop-filter:
-      blur(20px);
-
-    backdrop-filter:
-      blur(20px);
-  }
-
-  .mobile-bottom-link {
-    position: relative;
-
-    min-width: 0;
-
-    padding:
-      4px
-      1px;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: flex-end;
-
-    gap: 5px;
-
-    color: inherit;
-
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .mobile-bottom-icon {
-    width: 29px;
-    height: 29px;
-
-    display: grid;
-    place-items: center;
-  }
-
-  .mobile-bottom-icon svg {
-    width: 20px;
-    height: 20px;
-
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.55;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .mobile-bottom-link small {
-    max-width: 100%;
-
-    overflow: hidden;
-
-    font-size: 6.2px;
-    font-weight: 700;
-
-    line-height: 1;
-
-    letter-spacing: 0.4px;
-
-    text-overflow: ellipsis;
-    text-transform: uppercase;
-
-    white-space: nowrap;
-  }
-
-  .mobile-bottom-link.active,
-  .mobile-bottom-link:hover {
-    color:
-      var(--gold, #b18a4d);
-  }
-
-  .mobile-bottom-link:active {
-    transform:
-      scale(0.94);
-  }
-
-
-  /* Center logo navigation */
-
-  .mobile-bottom-main {
-    transform:
-      translateY(-13px);
-  }
-
-  .mobile-bottom-main:hover {
-    transform:
-      translateY(-16px);
-  }
-
-  .mobile-bottom-main:active {
-    transform:
-      translateY(-11px)
-      scale(0.95);
-  }
-
-  .mobile-bottom-main-icon {
-    width: 54px;
-    height: 54px;
-
-    padding: 3px;
-
-    display: grid;
-    place-items: center;
-
-    overflow: hidden;
-
-    border:
-      2px solid rgba(207, 168, 91, 0.72);
-
-    border-radius: 50%;
-
-    background: #ffffff;
-
-    box-shadow:
-      0 12px 30px rgba(53, 35, 23, 0.25);
-  }
-
-  .mobile-bottom-main-icon img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-
-    border-radius: 50%;
-  }
-
-  .mobile-bottom-main small {
-    color:
-      var(--gold, #b18a4d);
-  }
-
-}
-
 
 /* =========================================================
    SMALL MOBILE
@@ -13154,4 +12975,596 @@ a:focus-visible {
 
   }
 
+}
+
+/* =========================================================
+   MOBILE DESKTOP-LIKE FLOOR GUIDE
+   SAME LAYOUT • NO HORIZONTAL SCROLL
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .floor-guide-section {
+    padding: 72px 0 78px !important;
+    overflow: hidden !important;
+  }
+
+  .floor-guide-section .container {
+    width: calc(100% - 16px) !important;
+    max-width: none !important;
+  }
+
+  .floor-guide-heading {
+    margin-bottom: 30px !important;
+    display: block !important;
+  }
+
+  .floor-guide-heading h2 {
+    font-size: 43px !important;
+    line-height: 0.92 !important;
+  }
+
+  .floor-guide-heading > p {
+    max-width: 310px !important;
+    margin-top: 20px !important;
+    padding: 13px 0 13px 15px !important;
+    font-size: 11px !important;
+    line-height: 1.55 !important;
+  }
+
+  .floor-background-text {
+    display: none !important;
+  }
+
+
+  /* Main layout: floor list + image and details */
+
+  .floor-guide-layout {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: 38% 62% !important;
+
+    gap: 5px !important;
+    align-items: stretch !important;
+
+    overflow: visible !important;
+  }
+
+
+  /* =====================================================
+     LEFT FLOOR LIST
+  ===================================================== */
+
+  .floor-navigation {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    overflow: hidden !important;
+
+    border-top:
+      1px solid rgba(255, 255, 255, 0.13) !important;
+  }
+
+  .floor-tab {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 58px !important;
+
+    flex: 1 1 0 !important;
+
+    padding: 7px 5px !important;
+
+    display: grid !important;
+    grid-template-columns: 21px minmax(0, 1fr) 22px !important;
+
+    gap: 5px !important;
+    align-items: center !important;
+
+    scroll-snap-align: none !important;
+
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-bottom:
+      1px solid rgba(255, 255, 255, 0.13) !important;
+
+    background: transparent !important;
+  }
+
+  .floor-tab:hover,
+  .floor-tab.active {
+    padding-left: 7px !important;
+
+    color: #ffffff !important;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(223, 193, 132, 0.13),
+        transparent
+      ) !important;
+  }
+
+  .floor-tab-number {
+    font-size: 14px !important;
+    line-height: 1 !important;
+  }
+
+  .floor-tab-copy {
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .floor-tab-copy small {
+    display: block !important;
+
+    margin-bottom: 3px !important;
+
+    overflow: hidden !important;
+
+    font-size: 4.5px !important;
+    line-height: 1 !important;
+
+    letter-spacing: 0.75px !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .floor-tab-copy strong {
+    display: block !important;
+
+    overflow: hidden !important;
+
+    font-size: 11px !important;
+    font-weight: 500 !important;
+
+    line-height: 1.05 !important;
+
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .floor-tab-arrow {
+    width: 21px !important;
+    height: 21px !important;
+
+    font-size: 8px !important;
+
+    opacity: 0.45 !important;
+  }
+
+  .floor-tab.active .floor-tab-arrow {
+    color: #211813 !important;
+    background: var(--gold-light, #d5b879) !important;
+
+    opacity: 1 !important;
+
+    transform:
+      rotate(45deg)
+      scale(1) !important;
+  }
+
+
+  /* =====================================================
+     RIGHT PREVIEW
+  ===================================================== */
+
+  .floor-preview {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 348px !important;
+    height: 348px !important;
+
+    display: grid !important;
+    grid-template-columns: 43% 57% !important;
+
+    overflow: hidden !important;
+
+    background: #f7f0e7 !important;
+
+    box-shadow:
+      0 18px 45px rgba(0, 0, 0, 0.23) !important;
+  }
+
+
+  /* Image */
+
+  .floor-preview-image {
+    position: relative !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 348px !important;
+    height: 348px !important;
+
+    overflow: hidden !important;
+
+    background: #2a1b13 !important;
+  }
+
+  .floor-preview-image::before {
+    content: "";
+
+    position: absolute;
+    inset: -18px;
+
+    z-index: 0;
+
+    background-image:
+      var(
+        --floor-active-image,
+        url("assets/image1.jpg")
+      );
+
+    background-size: cover;
+    background-position: center;
+
+    filter:
+      blur(16px)
+      brightness(0.66);
+
+    transform: scale(1.14);
+
+    opacity: 0.82;
+  }
+
+  .floor-preview-image img {
+    position: relative !important;
+    z-index: 1 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    padding: 0 !important;
+
+    object-fit: contain !important;
+    object-position: center center !important;
+
+    background: transparent !important;
+
+    transition:
+      opacity 0.42s ease,
+      transform 0.55s ease !important;
+  }
+
+  .floor-preview-image.is-changing img {
+    opacity: 0 !important;
+    transform: scale(1.025) !important;
+  }
+
+  .floor-preview-shade {
+    z-index: 2 !important;
+
+    background:
+      linear-gradient(
+        to top,
+        rgba(23, 14, 9, 0.5),
+        transparent 48%
+      ) !important;
+  }
+
+  .floor-preview-index {
+    bottom: 10px !important;
+    left: 9px !important;
+
+    z-index: 3 !important;
+
+    gap: 4px !important;
+
+    font-size: 4.5px !important;
+    letter-spacing: 0.8px !important;
+  }
+
+  .floor-preview-index span {
+    font-size: 22px !important;
+  }
+
+
+  /* Floor information */
+
+  .floor-preview-content {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 16px 10px 14px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    overflow: hidden !important;
+  }
+
+  .floor-preview-heading {
+    gap: 5px !important;
+  }
+
+  .floor-preview-heading > div {
+    min-width: 0 !important;
+  }
+
+  .floor-preview-heading small {
+    margin-bottom: 6px !important;
+
+    font-size: 4.5px !important;
+    letter-spacing: 1px !important;
+  }
+
+  .floor-preview-heading h3 {
+    max-width: 100% !important;
+
+    font-size: 21px !important;
+    line-height: 0.94 !important;
+
+    overflow-wrap: anywhere;
+  }
+
+  .floor-icon {
+    width: 29px !important;
+    height: 29px !important;
+
+    flex: 0 0 29px !important;
+
+    font-size: 9px !important;
+  }
+
+  .floor-preview-content > p {
+    margin: 13px 0 12px !important;
+
+    display: -webkit-box !important;
+
+    overflow: hidden !important;
+
+    color: #75675e !important;
+
+    font-size: 7px !important;
+    line-height: 1.45 !important;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .floor-product-list {
+    margin-bottom: 14px !important;
+
+    display: flex !important;
+    flex-wrap: wrap !important;
+
+    gap: 4px !important;
+  }
+
+  .floor-product-list span {
+    padding: 5px 5px !important;
+
+    font-size: 4.2px !important;
+    letter-spacing: 0.45px !important;
+
+    white-space: nowrap !important;
+  }
+
+  .floor-visit-link {
+    gap: 6px !important;
+
+    padding-bottom: 5px !important;
+
+    font-size: 4.7px !important;
+    letter-spacing: 0.65px !important;
+
+    white-space: nowrap !important;
+  }
+
+  .floor-visit-link svg {
+    width: 11px !important;
+  }
+
+
+  /* Automatic slide progress */
+
+  .floor-preview-progress {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    z-index: 10;
+
+    height: 2px;
+
+    overflow: hidden;
+
+    background:
+      rgba(177, 138, 77, 0.15);
+  }
+
+  .floor-preview-progress span {
+    display: block;
+
+    width: 0;
+    height: 100%;
+
+    background:
+      var(--gold, #b18a4d);
+  }
+
+  .floor-preview-progress span.animate {
+    animation:
+      floorAutoProgress
+      3s
+      linear
+      forwards;
+  }
+
+  @keyframes floorAutoProgress {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .floor-guide-section .container {
+    width: calc(100% - 10px) !important;
+  }
+
+  .floor-guide-layout {
+    grid-template-columns:
+      39% 61% !important;
+
+    gap: 3px !important;
+  }
+
+  .floor-preview {
+    grid-template-columns:
+      42% 58% !important;
+
+    min-height: 330px !important;
+    height: 330px !important;
+  }
+
+  .floor-preview-image {
+    min-height: 330px !important;
+    height: 330px !important;
+  }
+
+  .floor-tab {
+    min-height: 55px !important;
+
+    grid-template-columns:
+      19px minmax(0, 1fr) 19px !important;
+
+    padding:
+      6px 3px !important;
+  }
+
+  .floor-tab:hover,
+  .floor-tab.active {
+    padding-left: 5px !important;
+  }
+
+  .floor-tab-number {
+    font-size: 12px !important;
+  }
+
+  .floor-tab-copy small {
+    font-size: 4px !important;
+  }
+
+  .floor-tab-copy strong {
+    font-size: 9.7px !important;
+  }
+
+  .floor-tab-arrow {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .floor-preview-content {
+    padding:
+      13px 7px 12px !important;
+  }
+
+  .floor-preview-heading h3 {
+    font-size: 18px !important;
+  }
+
+  .floor-icon {
+    width: 25px !important;
+    height: 25px !important;
+
+    flex-basis: 25px !important;
+
+    font-size: 8px !important;
+  }
+
+  .floor-preview-content > p {
+    margin:
+      11px 0 10px !important;
+
+    font-size: 6.3px !important;
+  }
+
+  .floor-product-list {
+    margin-bottom: 11px !important;
+
+    gap: 3px !important;
+  }
+
+  .floor-product-list span {
+    padding:
+      4px !important;
+
+    font-size: 3.8px !important;
+  }
+
+  .floor-visit-link {
+    font-size: 4.2px !important;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .floor-guide-layout {
+    grid-template-columns:
+      40% 60% !important;
+  }
+
+  .floor-preview {
+    min-height: 312px !important;
+    height: 312px !important;
+
+    grid-template-columns:
+      41% 59% !important;
+  }
+
+  .floor-preview-image {
+    min-height: 312px !important;
+    height: 312px !important;
+  }
+
+  .floor-tab {
+    min-height: 52px !important;
+  }
+
+  .floor-tab-copy strong {
+    font-size: 8.8px !important;
+  }
+
+  .floor-preview-heading h3 {
+    font-size: 16px !important;
+  }
+
+}}
+/* REMOVE MOBILE BOTTOM NAV COMPLETELY */
+
+.mobile-bottom-navigation {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  body {
+    padding-bottom: 0 !important;
+  }
 }

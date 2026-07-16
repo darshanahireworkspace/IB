@@ -902,8 +902,16 @@ updateScrollUI();
    INDIANS BOUTIQUE INTERACTIVE FLOOR GUIDE
 ========================================================= */
 
+/* =========================================================
+   AUTOMATIC INTERACTIVE FLOOR GUIDE
+   3 SECOND CONTINUOUS LOOP
+========================================================= */
+
 const floorTabs =
   document.querySelectorAll(".floor-tab");
+
+const floorPreview =
+  document.querySelector(".floor-preview");
 
 const floorPreviewImage =
   document.getElementById("floorPreviewImage");
@@ -923,16 +931,32 @@ const floorPreviewDescription =
   );
 
 const floorProductList =
-  document.getElementById("floorProductList");
+  document.getElementById(
+    "floorProductList"
+  );
 
 const floorPreviewImageWrapper =
   document.querySelector(
     ".floor-preview-image"
   );
 
+const floorAutoProgress =
+  document.getElementById(
+    "floorAutoProgress"
+  );
+
+
+const floorOrder = [
+  "basement",
+  "ground",
+  "first",
+  "second",
+  "third",
+  "fourth"
+];
+
 
 const floorData = {
-
   basement: {
     number: "B",
     label: "Basement",
@@ -951,7 +975,6 @@ const floorData = {
     ]
   },
 
-
   ground: {
     number: "G",
     label: "Ground Floor",
@@ -966,10 +989,9 @@ const floorData = {
       "Jeans",
       "Denim",
       "T-Shirts",
-      "Casual Collection"
+      "Casual Wear"
     ]
   },
-
 
   first: {
     number: "01",
@@ -984,11 +1006,9 @@ const floorData = {
     products: [
       "Formal Shirts",
       "Casual Shirts",
-      "Party Shirts",
-      "Premium Brands"
+      "Party Shirts"
     ]
   },
-
 
   second: {
     number: "02",
@@ -996,7 +1016,7 @@ const floorData = {
     title: "Suiting & Shirting",
 
     description:
-      "Premium fabrics and personalised selections for refined formal dressing.",
+      "Premium fabrics and refined formal dressing collections.",
 
     image: "assets/image4.jpg",
 
@@ -1008,25 +1028,22 @@ const floorData = {
     ]
   },
 
-
   third: {
     number: "03",
     label: "Third Floor",
     title: "Jodhpuri & Kurta Pajama",
 
     description:
-      "Traditional and contemporary Indian occasion wear for celebrations.",
+      "Traditional and contemporary Indian occasion wear.",
 
     image: "assets/image5.jpg",
 
     products: [
       "Jodhpuri",
       "Kurta Pajama",
-      "Ethnic Wear",
-      "Festive Collection"
+      "Ethnic Wear"
     ]
   },
-
 
   fourth: {
     number: "04",
@@ -1034,7 +1051,7 @@ const floorData = {
     title: "Sherwani & Coat Suits",
 
     description:
-      "Wedding sherwanis, premium coat suits and groom occasion collections.",
+      "Wedding sherwanis, coat suits and premium groom collections.",
 
     image: "assets/image6.jpg",
 
@@ -1042,40 +1059,66 @@ const floorData = {
       "Sherwani",
       "Coat Suit",
       "Groom Wear",
-      "Wedding Collection"
+      "Wedding"
     ]
   }
-
 };
 
 
-/* Preload floor images */
+let currentFloorIndex = 0;
+let floorAutoTimer = null;
+
+const floorChangeDuration = 3000;
+
+
+/* Preload images */
 
 Object.values(floorData).forEach(
   (floor) => {
-
-    const image =
+    const preloadImage =
       new Image();
 
-    image.src =
+    preloadImage.src =
       floor.image;
-
   }
 );
 
 
-/* Update floor preview */
+/* Restart progress */
+
+function restartFloorProgress() {
+  if (!floorAutoProgress) return;
+
+  floorAutoProgress.classList.remove(
+    "animate"
+  );
+
+  void floorAutoProgress.offsetWidth;
+
+  floorAutoProgress.classList.add(
+    "animate"
+  );
+}
+
+
+/* Show selected floor */
 
 function showFloor(floorKey) {
-
   const selectedFloor =
     floorData[floorKey];
 
   if (!selectedFloor) return;
 
+  const selectedIndex =
+    floorOrder.indexOf(floorKey);
+
+  if (selectedIndex !== -1) {
+    currentFloorIndex =
+      selectedIndex;
+  }
+
 
   floorTabs.forEach((tab) => {
-
     const isSelected =
       tab.dataset.floor === floorKey;
 
@@ -1088,7 +1131,6 @@ function showFloor(floorKey) {
       "aria-selected",
       String(isSelected)
     );
-
   });
 
 
@@ -1098,16 +1140,21 @@ function showFloor(floorKey) {
 
 
   window.setTimeout(() => {
-
     if (floorPreviewImage) {
-
       floorPreviewImage.src =
         selectedFloor.image;
 
       floorPreviewImage.alt =
         `${selectedFloor.title} at Indians Boutique`;
-
     }
+
+
+    floorPreviewImageWrapper
+      ?.style
+      .setProperty(
+        "--floor-active-image",
+        `url("${selectedFloor.image}")`
+      );
 
 
     if (floorPreviewNumber) {
@@ -1135,7 +1182,6 @@ function showFloor(floorKey) {
 
 
     if (floorProductList) {
-
       floorProductList.innerHTML =
         selectedFloor.products
           .map(
@@ -1143,7 +1189,6 @@ function showFloor(floorKey) {
               `<span>${product}</span>`
           )
           .join("");
-
     }
 
 
@@ -1151,57 +1196,112 @@ function showFloor(floorKey) {
       ?.classList
       .remove("is-changing");
 
-  }, 260);
 
+    restartFloorProgress();
+
+  }, 220);
 }
 
 
-/* Floor button click */
+/* Automatic next floor */
+
+function scheduleNextFloor() {
+  window.clearTimeout(
+    floorAutoTimer
+  );
+
+  floorAutoTimer =
+    window.setTimeout(() => {
+      currentFloorIndex =
+        (
+          currentFloorIndex + 1
+        ) %
+        floorOrder.length;
+
+      showFloor(
+        floorOrder[currentFloorIndex]
+      );
+
+      scheduleNextFloor();
+
+    }, floorChangeDuration);
+}
+
+
+/* Manual floor click */
 
 floorTabs.forEach((tab) => {
-
   tab.addEventListener(
     "click",
     () => {
-
       showFloor(
         tab.dataset.floor
       );
 
+      scheduleNextFloor();
     }
   );
-
 });
 
 
-/* Main branch card scroll */
+/* Pause when section is outside viewport */
 
-const branchScrollButtons =
-  document.querySelectorAll(
-    "[data-scroll-target]"
+if (
+  "IntersectionObserver" in window &&
+  floorPreview
+) {
+  const floorSectionObserver =
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            scheduleNextFloor();
+            restartFloorProgress();
+          } else {
+            window.clearTimeout(
+              floorAutoTimer
+            );
+
+            floorAutoProgress
+              ?.classList
+              .remove("animate");
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+  floorSectionObserver.observe(
+    floorPreview
   );
+} else {
+  scheduleNextFloor();
+}
 
 
-branchScrollButtons.forEach((button) => {
+/* Browser tab inactive */
 
-  button.addEventListener(
-    "click",
-    () => {
+document.addEventListener(
+  "visibilitychange",
+  () => {
+    if (document.hidden) {
+      window.clearTimeout(
+        floorAutoTimer
+      );
 
-      const target =
-        document.querySelector(
-          button.dataset.scrollTarget
-        );
-
-      target?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
+      return;
     }
-  );
 
-});
+    scheduleNextFloor();
+  }
+);
+
+
+/* Initial floor */
+
+showFloor("basement");
 
 
 /* =========================================================
@@ -1450,112 +1550,3 @@ window.addEventListener(
   }
 );
 
-/* =========================================================
-   MOBILE BOTTOM NAVIGATION ACTIVE STATE
-========================================================= */
-
-const mobileBottomLinks =
-  document.querySelectorAll(
-    ".mobile-bottom-link"
-  );
-
-const mobileBottomSections = [
-  "home",
-  "stores",
-  "collections",
-  "floor-guide",
-  "visit"
-]
-  .map((sectionId) => {
-    return document.getElementById(
-      sectionId
-    );
-  })
-  .filter(Boolean);
-
-
-function updateMobileBottomNavigation() {
-  if (!mobileBottomLinks.length) return;
-
-  const headerOffset =
-    header?.offsetHeight || 0;
-
-  const scrollPosition =
-    window.scrollY +
-    headerOffset +
-    130;
-
-  let currentSection =
-    "home";
-
-
-  mobileBottomSections.forEach(
-    (section) => {
-
-      if (
-        scrollPosition >=
-        section.offsetTop
-      ) {
-        currentSection =
-          section.id;
-      }
-
-    }
-  );
-
-
-  mobileBottomLinks.forEach((link) => {
-
-    const target =
-      link.getAttribute("href");
-
-    link.classList.toggle(
-      "active",
-      target ===
-        `#${currentSection}`
-    );
-
-  });
-}
-
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    window.requestAnimationFrame(
-      updateMobileBottomNavigation
-    );
-
-  },
-  {
-    passive: true
-  }
-);
-
-
-mobileBottomLinks.forEach((link) => {
-
-  link.addEventListener(
-    "click",
-    () => {
-
-      mobileBottomLinks.forEach(
-        (currentLink) => {
-          currentLink.classList.remove(
-            "active"
-          );
-        }
-      );
-
-      link.classList.add(
-        "active"
-      );
-
-    }
-  );
-
-});
-
-
-updateMobileBottomNavigation();
