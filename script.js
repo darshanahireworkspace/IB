@@ -1449,3 +1449,113 @@ window.addEventListener(
     );
   }
 );
+
+/* =========================================================
+   MOBILE BOTTOM NAVIGATION ACTIVE STATE
+========================================================= */
+
+const mobileBottomLinks =
+  document.querySelectorAll(
+    ".mobile-bottom-link"
+  );
+
+const mobileBottomSections = [
+  "home",
+  "stores",
+  "collections",
+  "floor-guide",
+  "visit"
+]
+  .map((sectionId) => {
+    return document.getElementById(
+      sectionId
+    );
+  })
+  .filter(Boolean);
+
+
+function updateMobileBottomNavigation() {
+  if (!mobileBottomLinks.length) return;
+
+  const headerOffset =
+    header?.offsetHeight || 0;
+
+  const scrollPosition =
+    window.scrollY +
+    headerOffset +
+    130;
+
+  let currentSection =
+    "home";
+
+
+  mobileBottomSections.forEach(
+    (section) => {
+
+      if (
+        scrollPosition >=
+        section.offsetTop
+      ) {
+        currentSection =
+          section.id;
+      }
+
+    }
+  );
+
+
+  mobileBottomLinks.forEach((link) => {
+
+    const target =
+      link.getAttribute("href");
+
+    link.classList.toggle(
+      "active",
+      target ===
+        `#${currentSection}`
+    );
+
+  });
+}
+
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    window.requestAnimationFrame(
+      updateMobileBottomNavigation
+    );
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+mobileBottomLinks.forEach((link) => {
+
+  link.addEventListener(
+    "click",
+    () => {
+
+      mobileBottomLinks.forEach(
+        (currentLink) => {
+          currentLink.classList.remove(
+            "active"
+          );
+        }
+      );
+
+      link.classList.add(
+        "active"
+      );
+
+    }
+  );
+
+});
+
+
+updateMobileBottomNavigation();
