@@ -7711,3 +7711,298 @@ body.brand-intro-complete .hero-bottom {
   }
 
 }
+
+/*==================================================
+ HERO PREMIUM BRAND
+==================================================*/
+
+.hero-brand{
+
+display:flex;
+align-items:center;
+gap:18px;
+
+margin-bottom:28px;
+
+animation:fadeBrand 1.2s ease;
+
+}
+
+.hero-brand-logo{
+
+width:72px;
+height:72px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+background:white;
+
+padding:6px;
+
+box-shadow:
+
+0 10px 35px rgba(0,0,0,.35);
+
+border:2px solid rgba(212,175,55,.35);
+
+transition:.5s;
+
+}
+
+.hero-brand-logo:hover{
+
+transform:rotate(-5deg) scale(1.05);
+
+box-shadow:
+
+0 15px 45px rgba(212,175,55,.35);
+
+}
+
+.hero-brand-text{
+
+display:flex;
+flex-direction:column;
+
+}
+
+.hero-brand-text h3{
+
+font-family:"Cormorant Garamond",serif;
+
+font-size:34px;
+
+font-weight:700;
+
+letter-spacing:5px;
+
+color:#fff;
+
+line-height:1;
+
+margin-bottom:6px;
+
+text-shadow:
+
+0 3px 15px rgba(0,0,0,.45);
+
+}
+
+.hero-brand-text span{
+
+font-size:13px;
+
+letter-spacing:7px;
+
+font-weight:600;
+
+color:#d4af37;
+
+margin-bottom:8px;
+
+}
+
+.hero-brand-text small{
+
+font-size:12px;
+
+letter-spacing:2px;
+
+color:rgba(255,255,255,.75);
+
+}
+
+@keyframes fadeBrand{
+
+from{
+
+opacity:0;
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+transform:none;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.hero-brand{
+
+gap:12px;
+
+margin-bottom:20px;
+
+}
+
+.hero-brand-logo{
+
+width:56px;
+height:56px;
+
+padding:5px;
+
+}
+
+.hero-brand-text h3{
+
+font-size:24px;
+
+letter-spacing:3px;
+
+}
+
+.hero-brand-text span{
+
+font-size:10px;
+
+letter-spacing:5px;
+
+}
+
+.hero-brand-text small{
+
+font-size:10px;
+
+}
+
+}
+
+/* ==========================================
+   BIG PREMIUM HERO LOGO
+========================================== */
+
+.hero-brand{
+    display:flex;
+    align-items:center;
+    gap:24px;
+
+    margin-bottom:34px;
+}
+
+.hero-brand-logo{
+
+    width:120px;
+    height:120px;
+
+    object-fit:contain;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    padding:8px;
+
+    border:3px solid rgba(212,175,55,.35);
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+
+    transition:.45s;
+}
+
+.hero-brand-logo:hover{
+
+    transform:scale(1.08) rotate(-3deg);
+
+    box-shadow:
+    0 25px 70px rgba(212,175,55,.45);
+
+}
+
+.hero-brand-text h3{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:52px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    line-height:1;
+
+    letter-spacing:7px;
+
+    margin-bottom:8px;
+
+    text-shadow:
+    0 5px 20px rgba(0,0,0,.45);
+
+}
+
+.hero-brand-text span{
+
+    display:block;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#d4af37;
+
+    letter-spacing:9px;
+
+    margin-bottom:10px;
+
+}
+
+.hero-brand-text small{
+
+    font-size:14px;
+
+    color:rgba(255,255,255,.82);
+
+    letter-spacing:2px;
+
+}
+
+@media(max-width:768px){
+
+.hero-brand{
+
+gap:15px;
+
+margin-bottom:24px;
+
+}
+
+.hero-brand-logo{
+
+width:82px;
+height:82px;
+
+padding:6px;
+
+}
+
+.hero-brand-text h3{
+
+font-size:30px;
+
+letter-spacing:4px;
+
+}
+
+.hero-brand-text span{
+
+font-size:12px;
+
+letter-spacing:5px;
+
+}
+
+.hero-brand-text small{
+
+font-size:11px;
+
+}
+
+}
