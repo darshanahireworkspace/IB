@@ -1329,3 +1329,123 @@ if ("IntersectionObserver" in window) {
 /* Initial floor */
 
 showFloor("basement");
+
+/* =========================================================
+   FINAL PAGE SCROLL UNLOCK FIX
+========================================================= */
+
+function unlockPageScroll() {
+  const menuIsOpen =
+    mobileMenu?.classList.contains("open");
+
+  const introIsOpen =
+    brandIntro &&
+    !brandIntroClosed;
+
+  if (
+    menuIsOpen ||
+    introIsOpen
+  ) {
+    return;
+  }
+
+  document.documentElement.style.removeProperty(
+    "overflow"
+  );
+
+  document.documentElement.style.removeProperty(
+    "height"
+  );
+
+  document.body.style.removeProperty(
+    "overflow"
+  );
+
+  document.body.style.removeProperty(
+    "height"
+  );
+
+  document.body.style.removeProperty(
+    "position"
+  );
+
+  document.body.style.removeProperty(
+    "top"
+  );
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+}
+
+
+/*
+  Intro close झाल्यावर scroll unlock.
+*/
+
+const originalCloseBrandIntro =
+  typeof closeBrandIntro === "function"
+    ? closeBrandIntro
+    : null;
+
+if (originalCloseBrandIntro) {
+  closeBrandIntro = function () {
+    originalCloseBrandIntro();
+
+    window.setTimeout(
+      unlockPageScroll,
+      950
+    );
+  };
+}
+
+
+/*
+  Mobile menu close झाल्यावर scroll unlock.
+*/
+
+const originalCloseMobileMenu =
+  typeof closeMobileMenu === "function"
+    ? closeMobileMenu
+    : null;
+
+if (originalCloseMobileMenu) {
+  closeMobileMenu = function () {
+    originalCloseMobileMenu();
+
+    window.setTimeout(
+      unlockPageScroll,
+      50
+    );
+  };
+}
+
+
+/*
+  Page load fallback.
+*/
+
+window.addEventListener(
+  "load",
+  () => {
+    window.setTimeout(
+      unlockPageScroll,
+      9000
+    );
+  }
+);
+
+
+/*
+  Browser back/forward नंतरही scroll सुरू राहील.
+*/
+
+window.addEventListener(
+  "pageshow",
+  () => {
+    window.setTimeout(
+      unlockPageScroll,
+      100
+    );
+  }
+);
