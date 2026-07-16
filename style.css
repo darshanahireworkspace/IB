@@ -7149,3 +7149,565 @@ body.brand-intro-complete .hero-bottom {
   }
 
 }
+
+/* =========================================================
+   FINAL MOBILE RESPONSIVE HERO FIX
+   ADD AT THE BOTTOM OF style.css
+========================================================= */
+
+
+/* =========================================================
+   GENERAL HERO STABILITY
+========================================================= */
+
+.hero {
+  position: relative !important;
+
+  width: 100% !important;
+
+  min-height: 100svh !important;
+  min-height: 100dvh !important;
+
+  overflow: hidden !important;
+
+  background: #100b08 !important;
+
+  isolation: isolate;
+}
+
+
+#heroVideo {
+  position: absolute !important;
+
+  top: 50% !important;
+  left: 50% !important;
+
+  z-index: -5 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  min-width: 100% !important;
+  min-height: 100% !important;
+
+  object-fit: cover !important;
+  object-position: center center !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  transform:
+    translate3d(-50%, -50%, 0)
+    scale(1.02) !important;
+
+  filter:
+    brightness(0.9)
+    contrast(1.04)
+    saturate(0.94);
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
+  pointer-events: none;
+}
+
+
+/* Better mobile overlay */
+
+.hero-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+
+  z-index: -4 !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(8, 5, 3, 0.9) 0%,
+      rgba(8, 5, 3, 0.6) 48%,
+      rgba(8, 5, 3, 0.22) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(8, 5, 3, 0.52) 0%,
+      rgba(8, 5, 3, 0.08) 34%,
+      rgba(8, 5, 3, 0.18) 62%,
+      rgba(8, 5, 3, 0.92) 100%
+    ) !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .hero {
+    min-height: 100svh !important;
+  }
+
+  #heroVideo {
+    object-position: 56% center !important;
+
+    transform:
+      translate3d(-50%, -50%, 0)
+      scale(1.04) !important;
+  }
+
+  .hero .hero-shell {
+    width: calc(100% - 48px) !important;
+
+    padding:
+      calc(var(--header-height) + 55px)
+      0
+      115px !important;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE HERO
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .hero {
+    min-height: auto !important;
+
+    overflow: hidden !important;
+  }
+
+
+  /*
+    Mobile portrait video frame.
+    100svh पेक्षा content जास्त असेल तर hero वाढू शकतो.
+  */
+
+  .hero::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: -6;
+
+    background:
+      #120c08;
+  }
+
+
+  #heroVideo {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+
+    object-fit: cover !important;
+
+    /*
+      Subject video च्या right side ला असल्यास 58%.
+      Subject left side ला असल्यास 42% वापर.
+    */
+
+    object-position: 58% center !important;
+
+    transform: none !important;
+
+    filter:
+      brightness(0.78)
+      contrast(1.08)
+      saturate(0.9);
+  }
+
+
+  .hero-overlay {
+    position: absolute !important;
+
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+
+    height: 100svh !important;
+    height: 100dvh !important;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(7, 4, 3, 0.77) 0%,
+        rgba(7, 4, 3, 0.44) 58%,
+        rgba(7, 4, 3, 0.23) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(7, 4, 3, 0.58) 0%,
+        rgba(7, 4, 3, 0.12) 30%,
+        rgba(7, 4, 3, 0.32) 61%,
+        rgba(7, 4, 3, 0.96) 100%
+      ) !important;
+  }
+
+
+  .hero-grain {
+    height: 100svh !important;
+
+    opacity: 0.015 !important;
+
+    animation: none !important;
+  }
+
+
+  .hero .hero-shell {
+    position: relative !important;
+
+    width: calc(100% - 40px) !important;
+
+    min-height: 100svh !important;
+    min-height: 100dvh !important;
+
+    margin: 0 auto !important;
+
+    padding:
+      calc(var(--header-height) + 45px)
+      0
+      100px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+    justify-content: center !important;
+
+    gap: 36px !important;
+  }
+
+
+  .hero .hero-content {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    flex: 0 0 auto;
+  }
+
+
+  .hero-brand-seal {
+    margin-bottom: 18px !important;
+  }
+
+
+  .hero-brand-seal > span {
+    width: 36px !important;
+    height: 36px !important;
+
+    font-size: 14px !important;
+  }
+
+
+  .eyebrow {
+    margin-bottom: 18px !important;
+
+    gap: 10px !important;
+
+    font-size: 7px !important;
+    letter-spacing: 2px !important;
+  }
+
+
+  .eyebrow span {
+    width: 24px !important;
+  }
+
+
+  .hero h1 {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    font-size:
+      clamp(46px, 14vw, 68px) !important;
+
+    line-height: 0.9 !important;
+
+    letter-spacing: -1.8px !important;
+
+    text-wrap: balance;
+  }
+
+
+  .hero h1 em {
+    margin-top: 9px !important;
+  }
+
+
+  .hero-subtitle {
+    width: fit-content !important;
+    max-width: 100% !important;
+
+    margin-top: 22px !important;
+
+    padding:
+      8px 10px !important;
+
+    font-size: 7px !important;
+
+    letter-spacing: 1.8px !important;
+
+    white-space: normal !important;
+  }
+
+
+  .hero-actions {
+    width: 100% !important;
+
+    margin-top: 22px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    gap: 10px !important;
+  }
+
+
+  .hero-actions .button {
+    width: 100% !important;
+    min-height: 54px !important;
+
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+
+  .hero-actions .button-gold {
+    padding-left: 20px !important;
+
+    justify-content: space-between !important;
+  }
+
+
+  .hero-actions .button-gold > span {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+
+  .hero-actions .button-glass {
+    justify-content: center !important;
+
+    background:
+      rgba(12, 8, 5, 0.28) !important;
+  }
+
+
+  /*
+    Hero slider mobile वर video च्या खाली येईल.
+    त्यामुळे heading वर overlap होणार नाही.
+  */
+
+  .hero .hero-look-card {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 330px !important;
+
+    margin: 5px auto 0 !important;
+
+    flex: 0 0 auto;
+
+    align-self: center !important;
+  }
+
+
+  .hero .look-slider {
+    height:
+      min(142vw, 485px) !important;
+  }
+
+
+  /*
+    Hero card मुळे section viewport पेक्षा मोठा होतो.
+    Card च्या मागे video stretch न होता dark background दिसेल.
+  */
+
+  .hero .hero-look-card::after {
+    display: none !important;
+  }
+
+
+  .hero-bottom {
+    position: absolute !important;
+
+    right: 20px !important;
+    bottom: 24px !important;
+    left: 20px !important;
+
+    padding-top: 14px !important;
+
+    grid-template-columns:
+      1fr auto !important;
+  }
+
+
+  .hero-meta {
+    gap: 9px !important;
+
+    font-size: 6.5px !important;
+
+    letter-spacing: 1.2px !important;
+  }
+
+
+  .scroll-cue,
+  .hero-bottom > p {
+    display: none !important;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  #heroVideo {
+    object-position: 60% center !important;
+  }
+
+
+  .hero .hero-shell {
+    width: calc(100% - 32px) !important;
+
+    padding-top:
+      calc(var(--header-height) + 38px) !important;
+
+    gap: 30px !important;
+  }
+
+
+  .hero h1 {
+    font-size:
+      clamp(43px, 13.5vw, 57px) !important;
+  }
+
+
+  .hero-subtitle {
+    max-width: 280px !important;
+
+    line-height: 1.5 !important;
+  }
+
+
+  .hero .hero-look-card {
+    max-width: 100% !important;
+  }
+
+
+  .hero .look-slider {
+    height:
+      min(145vw, 465px) !important;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .hero h1 {
+    font-size: 41px !important;
+  }
+
+
+  .hero-actions .button {
+    font-size: 7.5px !important;
+    letter-spacing: 1.2px !important;
+  }
+
+
+  .hero-meta span:nth-child(2) {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE LANDSCAPE
+========================================================= */
+
+@media
+  (max-height: 520px)
+  and (orientation: landscape) {
+
+  .hero {
+    min-height: 720px !important;
+  }
+
+
+  #heroVideo,
+  .hero-overlay {
+    height: 720px !important;
+  }
+
+
+  .hero .hero-shell {
+    min-height: 720px !important;
+
+    padding-top:
+      calc(var(--header-height) + 30px) !important;
+  }
+
+
+  .hero h1 {
+    font-size: 50px !important;
+  }
+
+
+  .hero .hero-look-card {
+    display: none !important;
+  }
+
+}
+
+
+/* =========================================================
+   SAFARI FALLBACK
+========================================================= */
+
+@supports not (height: 100dvh) {
+
+  @media (max-width: 760px) {
+
+    .hero,
+    #heroVideo,
+    .hero-overlay,
+    .hero .hero-shell {
+      min-height: 100vh !important;
+      height: auto;
+    }
+
+    #heroVideo,
+    .hero-overlay {
+      height: 100vh !important;
+    }
+
+  }
+
+}
