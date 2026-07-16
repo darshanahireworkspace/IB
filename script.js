@@ -895,23 +895,26 @@ if (currentYear) {
    INITIAL STATE
 ========================================================= */
 
-updateScrollUI();
+if (typeof updateScrollUI === "function") {
+  updateScrollUI();
+}
 
-
-/* =========================================================
-   INDIANS BOUTIQUE INTERACTIVE FLOOR GUIDE
-========================================================= */
 
 /* =========================================================
    AUTOMATIC INTERACTIVE FLOOR GUIDE
    3 SECOND CONTINUOUS LOOP
 ========================================================= */
 
+/* Floor guide elements */
+
 const floorTabs =
   document.querySelectorAll(".floor-tab");
 
 const floorPreview =
   document.querySelector(".floor-preview");
+
+const floorPreviewImageWrapper =
+  document.querySelector(".floor-preview-image");
 
 const floorPreviewImage =
   document.getElementById("floorPreviewImage");
@@ -926,25 +929,16 @@ const floorPreviewTitle =
   document.getElementById("floorPreviewTitle");
 
 const floorPreviewDescription =
-  document.getElementById(
-    "floorPreviewDescription"
-  );
+  document.getElementById("floorPreviewDescription");
 
 const floorProductList =
-  document.getElementById(
-    "floorProductList"
-  );
-
-const floorPreviewImageWrapper =
-  document.querySelector(
-    ".floor-preview-image"
-  );
+  document.getElementById("floorProductList");
 
 const floorAutoProgress =
-  document.getElementById(
-    "floorAutoProgress"
-  );
+  document.getElementById("floorAutoProgress");
 
+
+/* Floor order */
 
 const floorOrder = [
   "basement",
@@ -956,6 +950,8 @@ const floorOrder = [
 ];
 
 
+/* Floor data with matching images */
+
 const floorData = {
   basement: {
     number: "B",
@@ -963,15 +959,15 @@ const floorData = {
     title: "Casual Essentials",
 
     description:
-      "Explore jeans, T-shirts, shirts and everyday casual styles.",
+      "Explore premium casual wear, everyday essentials and modern menswear styles.",
 
-    image: "assets/image1.jpg",
+    image: "assets/image10.jpg",
 
     products: [
-      "Jeans",
+      "Casual Shirts",
       "T-Shirts",
-      "Shirts",
-      "Casual Wear"
+      "Denim",
+      "Everyday Wear"
     ]
   },
 
@@ -981,15 +977,15 @@ const floorData = {
     title: "Jeans & T-Shirts",
 
     description:
-      "Contemporary denim, premium T-shirts and everyday menswear essentials.",
+      "Discover modern denim, premium jeans, polos and everyday T-shirt collections.",
 
-    image: "assets/image2.jpg",
+    image: "assets/image11.jpg",
 
     products: [
       "Jeans",
       "Denim",
       "T-Shirts",
-      "Casual Wear"
+      "Polo T-Shirts"
     ]
   },
 
@@ -999,14 +995,15 @@ const floorData = {
     title: "Premium Shirts",
 
     description:
-      "Formal, casual and occasion shirts from premium fashion brands.",
+      "Formal, casual and premium occasion shirts from leading fashion brands.",
 
-    image: "assets/image3.jpg",
+    image: "assets/image12.jpg",
 
     products: [
       "Formal Shirts",
       "Casual Shirts",
-      "Party Shirts"
+      "Party Shirts",
+      "Premium Brands"
     ]
   },
 
@@ -1016,15 +1013,15 @@ const floorData = {
     title: "Suiting & Shirting",
 
     description:
-      "Premium fabrics and refined formal dressing collections.",
+      "Premium suiting and shirting fabrics created for refined formal dressing.",
 
-    image: "assets/image4.jpg",
+    image: "assets/image13.jpg",
 
     products: [
       "Suiting",
       "Shirting",
-      "Premium Fabric",
-      "Formal Wear"
+      "Premium Fabrics",
+      "Formal Collection"
     ]
   },
 
@@ -1034,14 +1031,15 @@ const floorData = {
     title: "Jodhpuri & Kurta Pajama",
 
     description:
-      "Traditional and contemporary Indian occasion wear.",
+      "Elegant ethnic and festive styles for weddings, celebrations and special occasions.",
 
-    image: "assets/image5.jpg",
+    image: "assets/image14.jpg",
 
     products: [
       "Jodhpuri",
       "Kurta Pajama",
-      "Ethnic Wear"
+      "Ethnic Wear",
+      "Festive Styles"
     ]
   },
 
@@ -1051,61 +1049,67 @@ const floorData = {
     title: "Sherwani & Coat Suits",
 
     description:
-      "Wedding sherwanis, coat suits and premium groom collections.",
+      "Premium sherwanis, groom collections and sophisticated coat suits for grand occasions.",
 
-    image: "assets/image6.jpg",
+    image: "assets/image15.jpg",
 
     products: [
       "Sherwani",
       "Coat Suit",
       "Groom Wear",
-      "Wedding"
+      "Wedding Collection"
     ]
   }
 };
 
 
+/* Slider state */
+
 let currentFloorIndex = 0;
 let floorAutoTimer = null;
+let floorImageChangeTimer = null;
+let floorGuideIsVisible = false;
 
 const floorChangeDuration = 3000;
 
 
-/* Preload images */
+/* =========================================================
+   PRELOAD FLOOR IMAGES
+========================================================= */
 
-Object.values(floorData).forEach(
-  (floor) => {
-    const preloadImage =
-      new Image();
+Object.values(floorData).forEach((floor) => {
+  const preloadImage = new Image();
 
-    preloadImage.src =
-      floor.image;
-  }
-);
+  preloadImage.src = floor.image;
+});
 
 
-/* Restart progress */
+/* =========================================================
+   FLOOR PROGRESS ANIMATION
+========================================================= */
 
 function restartFloorProgress() {
   if (!floorAutoProgress) return;
 
-  floorAutoProgress.classList.remove(
-    "animate"
-  );
+  floorAutoProgress.classList.remove("animate");
 
   void floorAutoProgress.offsetWidth;
 
-  floorAutoProgress.classList.add(
-    "animate"
-  );
+  floorAutoProgress.classList.add("animate");
 }
 
 
-/* Show selected floor */
+function stopFloorProgress() {
+  floorAutoProgress?.classList.remove("animate");
+}
+
+
+/* =========================================================
+   UPDATE FLOOR CONTENT
+========================================================= */
 
 function showFloor(floorKey) {
-  const selectedFloor =
-    floorData[floorKey];
+  const selectedFloor = floorData[floorKey];
 
   if (!selectedFloor) return;
 
@@ -1113,10 +1117,11 @@ function showFloor(floorKey) {
     floorOrder.indexOf(floorKey);
 
   if (selectedIndex !== -1) {
-    currentFloorIndex =
-      selectedIndex;
+    currentFloorIndex = selectedIndex;
   }
 
+
+  /* Active floor tab */
 
   floorTabs.forEach((tab) => {
     const isSelected =
@@ -1131,96 +1136,157 @@ function showFloor(floorKey) {
       "aria-selected",
       String(isSelected)
     );
+
+    tab.tabIndex =
+      isSelected ? 0 : -1;
   });
 
 
-  floorPreviewImageWrapper
-    ?.classList
-    .add("is-changing");
+  /* Start image transition */
+
+  floorPreviewImageWrapper?.classList.add(
+    "is-changing"
+  );
+
+  window.clearTimeout(
+    floorImageChangeTimer
+  );
 
 
-  window.setTimeout(() => {
-    if (floorPreviewImage) {
-      floorPreviewImage.src =
-        selectedFloor.image;
+  floorImageChangeTimer =
+    window.setTimeout(() => {
 
-      floorPreviewImage.alt =
-        `${selectedFloor.title} at Indians Boutique`;
-    }
+      /* Change image */
+
+      if (floorPreviewImage) {
+        floorPreviewImage.src =
+          selectedFloor.image;
+
+        floorPreviewImage.alt =
+          `${selectedFloor.title} collection at Indians Boutique`;
+      }
 
 
-    floorPreviewImageWrapper
-      ?.style
-      .setProperty(
+      /* Change blurred image background */
+
+      floorPreviewImageWrapper?.style.setProperty(
         "--floor-active-image",
         `url("${selectedFloor.image}")`
       );
 
 
-    if (floorPreviewNumber) {
-      floorPreviewNumber.textContent =
-        selectedFloor.number;
-    }
+      /* Change floor number */
+
+      if (floorPreviewNumber) {
+        floorPreviewNumber.textContent =
+          selectedFloor.number;
+      }
 
 
-    if (floorPreviewLabel) {
-      floorPreviewLabel.textContent =
-        selectedFloor.label;
-    }
+      /* Change floor label */
+
+      if (floorPreviewLabel) {
+        floorPreviewLabel.textContent =
+          selectedFloor.label;
+      }
 
 
-    if (floorPreviewTitle) {
-      floorPreviewTitle.textContent =
-        selectedFloor.title;
-    }
+      /* Change floor title */
+
+      if (floorPreviewTitle) {
+        floorPreviewTitle.textContent =
+          selectedFloor.title;
+      }
 
 
-    if (floorPreviewDescription) {
-      floorPreviewDescription.textContent =
-        selectedFloor.description;
-    }
+      /* Change description */
+
+      if (floorPreviewDescription) {
+        floorPreviewDescription.textContent =
+          selectedFloor.description;
+      }
 
 
-    if (floorProductList) {
-      floorProductList.innerHTML =
-        selectedFloor.products
-          .map(
-            (product) =>
-              `<span>${product}</span>`
+      /* Change product tags */
+
+      if (floorProductList) {
+        floorProductList.replaceChildren(
+          ...selectedFloor.products.map(
+            (product) => {
+              const productTag =
+                document.createElement("span");
+
+              productTag.textContent =
+                product;
+
+              return productTag;
+            }
           )
-          .join("");
-    }
+        );
+      }
 
 
-    floorPreviewImageWrapper
-      ?.classList
-      .remove("is-changing");
+      floorPreviewImageWrapper?.classList.remove(
+        "is-changing"
+      );
 
 
-    restartFloorProgress();
+      if (
+        floorGuideIsVisible &&
+        !document.hidden
+      ) {
+        restartFloorProgress();
+      }
 
-  }, 220);
+    }, 220);
 }
 
 
-/* Automatic next floor */
+/* =========================================================
+   AUTOMATIC FLOOR LOOP
+========================================================= */
+
+function stopFloorSlider() {
+  window.clearTimeout(
+    floorAutoTimer
+  );
+
+  floorAutoTimer = null;
+
+  stopFloorProgress();
+}
+
 
 function scheduleNextFloor() {
   window.clearTimeout(
     floorAutoTimer
   );
 
+  if (
+    floorTabs.length < 2 ||
+    !floorGuideIsVisible ||
+    document.hidden
+  ) {
+    return;
+  }
+
+  restartFloorProgress();
+
+
   floorAutoTimer =
     window.setTimeout(() => {
+
       currentFloorIndex =
         (
           currentFloorIndex + 1
         ) %
         floorOrder.length;
 
+
       showFloor(
         floorOrder[currentFloorIndex]
       );
+
 
       scheduleNextFloor();
 
@@ -1228,80 +1294,171 @@ function scheduleNextFloor() {
 }
 
 
-/* Manual floor click */
+/* =========================================================
+   MANUAL FLOOR SELECTION
+========================================================= */
 
 floorTabs.forEach((tab) => {
+
   tab.addEventListener(
     "click",
     () => {
-      showFloor(
-        tab.dataset.floor
-      );
+
+      const selectedFloor =
+        tab.dataset.floor;
+
+      if (!selectedFloor) return;
+
+      showFloor(selectedFloor);
 
       scheduleNextFloor();
     }
   );
+
+
+  /*
+    Keyboard support:
+    Left/Up = previous floor
+    Right/Down = next floor
+  */
+
+  tab.addEventListener(
+    "keydown",
+    (event) => {
+
+      const supportedKeys = [
+        "ArrowLeft",
+        "ArrowUp",
+        "ArrowRight",
+        "ArrowDown"
+      ];
+
+      if (
+        !supportedKeys.includes(
+          event.key
+        )
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+
+      const direction =
+        event.key === "ArrowLeft" ||
+        event.key === "ArrowUp"
+          ? -1
+          : 1;
+
+
+      currentFloorIndex =
+        (
+          currentFloorIndex +
+          direction +
+          floorOrder.length
+        ) %
+        floorOrder.length;
+
+
+      const nextFloorKey =
+        floorOrder[currentFloorIndex];
+
+
+      showFloor(nextFloorKey);
+
+      scheduleNextFloor();
+
+
+      const nextFloorTab =
+        document.querySelector(
+          `.floor-tab[data-floor="${nextFloorKey}"]`
+        );
+
+      nextFloorTab?.focus();
+    }
+  );
+
 });
 
 
-/* Pause when section is outside viewport */
+/* =========================================================
+   RUN ONLY WHEN FLOOR SECTION IS VISIBLE
+========================================================= */
 
 if (
   "IntersectionObserver" in window &&
   floorPreview
 ) {
+
   const floorSectionObserver =
     new IntersectionObserver(
       (entries) => {
+
         entries.forEach((entry) => {
+
+          floorGuideIsVisible =
+            entry.isIntersecting;
+
+
           if (entry.isIntersecting) {
             scheduleNextFloor();
-            restartFloorProgress();
           } else {
-            window.clearTimeout(
-              floorAutoTimer
-            );
-
-            floorAutoProgress
-              ?.classList
-              .remove("animate");
+            stopFloorSlider();
           }
+
         });
+
       },
       {
-        threshold: 0.15
+        threshold: 0.12
       }
     );
+
 
   floorSectionObserver.observe(
     floorPreview
   );
+
 } else {
+
+  floorGuideIsVisible = true;
+
   scheduleNextFloor();
 }
 
 
-/* Browser tab inactive */
+/* =========================================================
+   BROWSER TAB VISIBILITY
+========================================================= */
 
 document.addEventListener(
   "visibilitychange",
   () => {
-    if (document.hidden) {
-      window.clearTimeout(
-        floorAutoTimer
-      );
 
+    if (document.hidden) {
+      stopFloorSlider();
       return;
     }
 
-    scheduleNextFloor();
+
+    if (floorGuideIsVisible) {
+      scheduleNextFloor();
+    }
+
   }
 );
 
 
-/* Initial floor */
+/* =========================================================
+   INITIAL FLOOR
+========================================================= */
 
-showFloor("basement");
+if (
+  floorTabs.length &&
+  floorPreview
+) {
+  showFloor("basement");
+}
 
 
 /* =========================================================
@@ -1315,25 +1472,26 @@ const counterElements =
 
 
 function animateCounter(element) {
+  if (
+    element.dataset.animated === "true"
+  ) {
+    return;
+  }
 
   const target =
-    Number(
-      element.dataset.counter
-    );
+    Number(element.dataset.counter);
 
   if (!Number.isFinite(target)) {
     return;
   }
 
+  element.dataset.animated = "true";
 
   const duration = 1400;
-
-  const startTime =
-    performance.now();
+  const startTime = performance.now();
 
 
   function updateCounter(currentTime) {
-
     const elapsed =
       currentTime - startTime;
 
@@ -1343,14 +1501,12 @@ function animateCounter(element) {
         1
       );
 
-
     const easedProgress =
       1 -
       Math.pow(
         1 - progress,
         3
       );
-
 
     const currentValue =
       Math.round(
@@ -1365,24 +1521,22 @@ function animateCounter(element) {
 
 
     if (progress < 1) {
-
       window.requestAnimationFrame(
         updateCounter
       );
-
     }
-
   }
 
 
   window.requestAnimationFrame(
     updateCounter
   );
-
 }
 
 
-if ("IntersectionObserver" in window) {
+if (
+  "IntersectionObserver" in window
+) {
 
   const counterObserver =
     new IntersectionObserver(
@@ -1408,14 +1562,18 @@ if ("IntersectionObserver" in window) {
 
       },
       {
-        threshold: 0.45
+        threshold: 0.35
       }
     );
 
 
-  counterElements.forEach((counter) => {
-    counterObserver.observe(counter);
-  });
+  counterElements.forEach(
+    (counter) => {
+      counterObserver.observe(
+        counter
+      );
+    }
+  );
 
 } else {
 
@@ -1426,39 +1584,58 @@ if ("IntersectionObserver" in window) {
 }
 
 
-/* Initial floor */
-
-showFloor("basement");
-
 /* =========================================================
    FINAL PAGE SCROLL UNLOCK FIX
 ========================================================= */
 
 function unlockPageScroll() {
-  const menuIsOpen =
-    mobileMenu?.classList.contains("open");
+  const menuIsCurrentlyOpen =
+    document
+      .getElementById("mobileMenu")
+      ?.classList
+      .contains("open");
 
-  const introIsOpen =
-    brandIntro &&
-    !brandIntroClosed;
+
+  const introElement =
+    document.getElementById(
+      "brandIntro"
+    );
+
+
+  const introIsCurrentlyOpen =
+    introElement &&
+    !introElement.classList.contains(
+      "intro-hidden"
+    );
+
 
   if (
-    menuIsOpen ||
-    introIsOpen
+    menuIsCurrentlyOpen ||
+    introIsCurrentlyOpen
   ) {
     return;
   }
 
+
   document.documentElement.style.removeProperty(
     "overflow"
+  );
+
+  document.documentElement.style.removeProperty(
+    "overflow-y"
   );
 
   document.documentElement.style.removeProperty(
     "height"
   );
 
+
   document.body.style.removeProperty(
     "overflow"
+  );
+
+  document.body.style.removeProperty(
+    "overflow-y"
   );
 
   document.body.style.removeProperty(
@@ -1473,80 +1650,117 @@ function unlockPageScroll() {
     "top"
   );
 
+  document.body.style.removeProperty(
+    "width"
+  );
+
+
   document.body.classList.remove(
     "menu-open"
   );
-}
 
 
-/*
-  Intro close झाल्यावर scroll unlock.
-*/
-
-const originalCloseBrandIntro =
-  typeof closeBrandIntro === "function"
-    ? closeBrandIntro
-    : null;
-
-if (originalCloseBrandIntro) {
-  closeBrandIntro = function () {
-    originalCloseBrandIntro();
-
-    window.setTimeout(
-      unlockPageScroll,
-      950
+  if (
+    !introElement ||
+    introElement.classList.contains(
+      "intro-hidden"
+    )
+  ) {
+    document.body.classList.remove(
+      "brand-intro-active"
     );
-  };
-}
 
-
-/*
-  Mobile menu close झाल्यावर scroll unlock.
-*/
-
-const originalCloseMobileMenu =
-  typeof closeMobileMenu === "function"
-    ? closeMobileMenu
-    : null;
-
-if (originalCloseMobileMenu) {
-  closeMobileMenu = function () {
-    originalCloseMobileMenu();
-
-    window.setTimeout(
-      unlockPageScroll,
-      50
+    document.body.classList.add(
+      "brand-intro-complete"
     );
-  };
+  }
 }
 
 
-/*
-  Page load fallback.
-*/
+/* Unlock after page load */
 
 window.addEventListener(
   "load",
   () => {
+
     window.setTimeout(
       unlockPageScroll,
-      9000
+      8500
     );
+
+  },
+  {
+    once: true
+  }
+);
+
+
+/* Unlock on browser back/forward */
+
+window.addEventListener(
+  "pageshow",
+  () => {
+
+    window.setTimeout(
+      unlockPageScroll,
+      150
+    );
+
   }
 );
 
 
 /*
-  Browser back/forward नंतरही scroll सुरू राहील.
+  Watch intro and mobile-menu classes.
+  त्यांच्या close झाल्यानंतर page scroll unlock होईल.
 */
 
-window.addEventListener(
-  "pageshow",
-  () => {
-    window.setTimeout(
-      unlockPageScroll,
-      100
-    );
-  }
-);
+const scrollLockObserver =
+  new MutationObserver(() => {
 
+    window.requestAnimationFrame(
+      unlockPageScroll
+    );
+
+  });
+
+
+const observedMobileMenu =
+  document.getElementById(
+    "mobileMenu"
+  );
+
+const observedBrandIntro =
+  document.getElementById(
+    "brandIntro"
+  );
+
+
+if (observedMobileMenu) {
+  scrollLockObserver.observe(
+    observedMobileMenu,
+    {
+      attributes: true,
+      attributeFilter: ["class"]
+    }
+  );
+}
+
+
+if (observedBrandIntro) {
+  scrollLockObserver.observe(
+    observedBrandIntro,
+    {
+      attributes: true,
+      attributeFilter: ["class"]
+    }
+  );
+}
+
+
+/* Final immediate fallback */
+
+window.setTimeout(
+  unlockPageScroll,
+  100
+);
