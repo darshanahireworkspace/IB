@@ -333,6 +333,7 @@ internalLinks.forEach((link) => {
 
 const sections = [
   "home",
+  "stores",
   "collections",
   "wedding",
   "gallery",
@@ -895,3 +896,436 @@ if (currentYear) {
 ========================================================= */
 
 updateScrollUI();
+
+
+/* =========================================================
+   INDIANS BOUTIQUE INTERACTIVE FLOOR GUIDE
+========================================================= */
+
+const floorTabs =
+  document.querySelectorAll(".floor-tab");
+
+const floorPreviewImage =
+  document.getElementById("floorPreviewImage");
+
+const floorPreviewNumber =
+  document.getElementById("floorPreviewNumber");
+
+const floorPreviewLabel =
+  document.getElementById("floorPreviewLabel");
+
+const floorPreviewTitle =
+  document.getElementById("floorPreviewTitle");
+
+const floorPreviewDescription =
+  document.getElementById(
+    "floorPreviewDescription"
+  );
+
+const floorProductList =
+  document.getElementById("floorProductList");
+
+const floorPreviewImageWrapper =
+  document.querySelector(
+    ".floor-preview-image"
+  );
+
+
+const floorData = {
+
+  basement: {
+    number: "B",
+    label: "Basement",
+    title: "Casual Essentials",
+
+    description:
+      "Explore jeans, T-shirts, shirts and everyday casual styles.",
+
+    image: "assets/image1.jpg",
+
+    products: [
+      "Jeans",
+      "T-Shirts",
+      "Shirts",
+      "Casual Wear"
+    ]
+  },
+
+
+  ground: {
+    number: "G",
+    label: "Ground Floor",
+    title: "Jeans & T-Shirts",
+
+    description:
+      "Contemporary denim, premium T-shirts and everyday menswear essentials.",
+
+    image: "assets/image2.jpg",
+
+    products: [
+      "Jeans",
+      "Denim",
+      "T-Shirts",
+      "Casual Collection"
+    ]
+  },
+
+
+  first: {
+    number: "01",
+    label: "First Floor",
+    title: "Premium Shirts",
+
+    description:
+      "Formal, casual and occasion shirts from premium fashion brands.",
+
+    image: "assets/image3.jpg",
+
+    products: [
+      "Formal Shirts",
+      "Casual Shirts",
+      "Party Shirts",
+      "Premium Brands"
+    ]
+  },
+
+
+  second: {
+    number: "02",
+    label: "Second Floor",
+    title: "Suiting & Shirting",
+
+    description:
+      "Premium fabrics and personalised selections for refined formal dressing.",
+
+    image: "assets/image4.jpg",
+
+    products: [
+      "Suiting",
+      "Shirting",
+      "Premium Fabric",
+      "Formal Wear"
+    ]
+  },
+
+
+  third: {
+    number: "03",
+    label: "Third Floor",
+    title: "Jodhpuri & Kurta Pajama",
+
+    description:
+      "Traditional and contemporary Indian occasion wear for celebrations.",
+
+    image: "assets/image5.jpg",
+
+    products: [
+      "Jodhpuri",
+      "Kurta Pajama",
+      "Ethnic Wear",
+      "Festive Collection"
+    ]
+  },
+
+
+  fourth: {
+    number: "04",
+    label: "Fourth Floor",
+    title: "Sherwani & Coat Suits",
+
+    description:
+      "Wedding sherwanis, premium coat suits and groom occasion collections.",
+
+    image: "assets/image6.jpg",
+
+    products: [
+      "Sherwani",
+      "Coat Suit",
+      "Groom Wear",
+      "Wedding Collection"
+    ]
+  }
+
+};
+
+
+/* Preload floor images */
+
+Object.values(floorData).forEach(
+  (floor) => {
+
+    const image =
+      new Image();
+
+    image.src =
+      floor.image;
+
+  }
+);
+
+
+/* Update floor preview */
+
+function showFloor(floorKey) {
+
+  const selectedFloor =
+    floorData[floorKey];
+
+  if (!selectedFloor) return;
+
+
+  floorTabs.forEach((tab) => {
+
+    const isSelected =
+      tab.dataset.floor === floorKey;
+
+    tab.classList.toggle(
+      "active",
+      isSelected
+    );
+
+    tab.setAttribute(
+      "aria-selected",
+      String(isSelected)
+    );
+
+  });
+
+
+  floorPreviewImageWrapper
+    ?.classList
+    .add("is-changing");
+
+
+  window.setTimeout(() => {
+
+    if (floorPreviewImage) {
+
+      floorPreviewImage.src =
+        selectedFloor.image;
+
+      floorPreviewImage.alt =
+        `${selectedFloor.title} at Indians Boutique`;
+
+    }
+
+
+    if (floorPreviewNumber) {
+      floorPreviewNumber.textContent =
+        selectedFloor.number;
+    }
+
+
+    if (floorPreviewLabel) {
+      floorPreviewLabel.textContent =
+        selectedFloor.label;
+    }
+
+
+    if (floorPreviewTitle) {
+      floorPreviewTitle.textContent =
+        selectedFloor.title;
+    }
+
+
+    if (floorPreviewDescription) {
+      floorPreviewDescription.textContent =
+        selectedFloor.description;
+    }
+
+
+    if (floorProductList) {
+
+      floorProductList.innerHTML =
+        selectedFloor.products
+          .map(
+            (product) =>
+              `<span>${product}</span>`
+          )
+          .join("");
+
+    }
+
+
+    floorPreviewImageWrapper
+      ?.classList
+      .remove("is-changing");
+
+  }, 260);
+
+}
+
+
+/* Floor button click */
+
+floorTabs.forEach((tab) => {
+
+  tab.addEventListener(
+    "click",
+    () => {
+
+      showFloor(
+        tab.dataset.floor
+      );
+
+    }
+  );
+
+});
+
+
+/* Main branch card scroll */
+
+const branchScrollButtons =
+  document.querySelectorAll(
+    "[data-scroll-target]"
+  );
+
+
+branchScrollButtons.forEach((button) => {
+
+  button.addEventListener(
+    "click",
+    () => {
+
+      const target =
+        document.querySelector(
+          button.dataset.scrollTarget
+        );
+
+      target?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   STORE STATS COUNTER
+========================================================= */
+
+const counterElements =
+  document.querySelectorAll(
+    "[data-counter]"
+  );
+
+
+function animateCounter(element) {
+
+  const target =
+    Number(
+      element.dataset.counter
+    );
+
+  if (!Number.isFinite(target)) {
+    return;
+  }
+
+
+  const duration = 1400;
+
+  const startTime =
+    performance.now();
+
+
+  function updateCounter(currentTime) {
+
+    const elapsed =
+      currentTime - startTime;
+
+    const progress =
+      Math.min(
+        elapsed / duration,
+        1
+      );
+
+
+    const easedProgress =
+      1 -
+      Math.pow(
+        1 - progress,
+        3
+      );
+
+
+    const currentValue =
+      Math.round(
+        target * easedProgress
+      );
+
+
+    element.textContent =
+      target >= 25
+        ? `${currentValue}+`
+        : String(currentValue);
+
+
+    if (progress < 1) {
+
+      window.requestAnimationFrame(
+        updateCounter
+      );
+
+    }
+
+  }
+
+
+  window.requestAnimationFrame(
+    updateCounter
+  );
+
+}
+
+
+if ("IntersectionObserver" in window) {
+
+  const counterObserver =
+    new IntersectionObserver(
+      (entries, observer) => {
+
+        entries.forEach((entry) => {
+
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+
+          animateCounter(
+            entry.target
+          );
+
+
+          observer.unobserve(
+            entry.target
+          );
+
+        });
+
+      },
+      {
+        threshold: 0.45
+      }
+    );
+
+
+  counterElements.forEach((counter) => {
+    counterObserver.observe(counter);
+  });
+
+} else {
+
+  counterElements.forEach(
+    animateCounter
+  );
+
+}
+
+
+/* Initial floor */
+
+showFloor("basement");
