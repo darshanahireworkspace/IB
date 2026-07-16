@@ -13929,3 +13929,233 @@ a:focus-visible {
   }
 
 }
+
+/* =========================================================
+   MOBILE FLOOR PREVIEW RATIO FIX
+   BIGGER IMAGE + SMALLER DETAILS PANEL
+========================================================= */
+
+@media (max-width: 760px) {
+
+  /*
+    Complete layout:
+    Left floor list + right preview
+  */
+
+  .floor-guide-layout {
+    grid-template-columns:
+      36% 64% !important;
+
+    gap: 4px !important;
+  }
+
+
+  /*
+    Right preview:
+    Image मोठी, white details छोटी
+  */
+
+  .floor-preview {
+    grid-template-columns:
+      56% 44% !important;
+
+    min-height: 360px !important;
+    height: 360px !important;
+  }
+
+
+  /* Bigger image */
+
+  .floor-preview-image {
+    width: 100% !important;
+
+    min-height: 360px !important;
+    height: 360px !important;
+  }
+
+  .floor-preview-image img {
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: cover !important;
+    object-position: center top !important;
+  }
+
+
+  /* Compact white explanation */
+
+  .floor-preview-content {
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding:
+      14px 8px 12px !important;
+
+    justify-content: center !important;
+  }
+
+  .floor-preview-heading {
+    gap: 4px !important;
+  }
+
+  .floor-preview-heading h3 {
+    max-width: 100% !important;
+
+    font-size: 18px !important;
+    line-height: 0.96 !important;
+
+    letter-spacing: -0.3px !important;
+  }
+
+  .floor-preview-heading small {
+    margin-bottom: 5px !important;
+
+    font-size: 4px !important;
+    letter-spacing: 0.8px !important;
+  }
+
+  .floor-icon {
+    width: 25px !important;
+    height: 25px !important;
+
+    flex: 0 0 25px !important;
+
+    font-size: 8px !important;
+  }
+
+  .floor-preview-content > p {
+    margin:
+      11px 0 10px !important;
+
+    font-size: 6.2px !important;
+    line-height: 1.4 !important;
+
+    -webkit-line-clamp: 3 !important;
+  }
+
+  .floor-product-list {
+    margin-bottom: 11px !important;
+
+    gap: 3px !important;
+  }
+
+  .floor-product-list span {
+    padding:
+      4px 4px !important;
+
+    font-size: 3.7px !important;
+    letter-spacing: 0.35px !important;
+  }
+
+  .floor-visit-link {
+    gap: 5px !important;
+
+    padding-bottom: 4px !important;
+
+    font-size: 4px !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .floor-visit-link svg {
+    width: 10px !important;
+  }
+
+
+  /* Floor image number */
+
+  .floor-preview-index {
+    bottom: 9px !important;
+    left: 8px !important;
+
+    font-size: 4px !important;
+  }
+
+  .floor-preview-index span {
+    font-size: 20px !important;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .floor-guide-layout {
+    grid-template-columns:
+      37% 63% !important;
+  }
+
+  .floor-preview {
+    grid-template-columns:
+      58% 42% !important;
+
+    min-height: 340px !important;
+    height: 340px !important;
+  }
+
+  .floor-preview-image {
+    min-height: 340px !important;
+    height: 340px !important;
+  }
+
+  .floor-preview-content {
+    padding:
+      12px 6px 10px !important;
+  }
+
+  .floor-preview-heading h3 {
+    font-size: 16px !important;
+  }
+
+  .floor-preview-content > p {
+    font-size: 5.7px !important;
+  }
+
+  .floor-product-list span {
+    font-size: 3.4px !important;
+  }
+
+  .floor-visit-link {
+    font-size: 3.7px !important;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .floor-guide-layout {
+    grid-template-columns:
+      38% 62% !important;
+  }
+
+  .floor-preview {
+    grid-template-columns:
+      60% 40% !important;
+
+    min-height: 320px !important;
+    height: 320px !important;
+  }
+
+  .floor-preview-image {
+    min-height: 320px !important;
+    height: 320px !important;
+  }
+
+  .floor-preview-heading h3 {
+    font-size: 14px !important;
+  }
+
+  .floor-preview-content > p {
+    font-size: 5.2px !important;
+  }
+
+}
+
