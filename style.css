@@ -14159,3 +14159,537 @@ a:focus-visible {
 
 }
 
+/* =========================================================
+   ALL THREE BRANCH LOGOS
+========================================================= */
+
+.branch-card {
+  position: relative !important;
+}
+
+.branch-corner-logo {
+  position: absolute;
+
+  top: 22px;
+  left: 22px;
+
+  z-index: 8;
+
+  width: 82px;
+  height: 82px;
+
+  padding: 4px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  border:
+    1px solid rgba(224, 191, 124, 0.72);
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 253, 249, 0.95);
+
+  box-shadow:
+    0 15px 38px rgba(0, 0, 0, 0.28);
+
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+.branch-corner-logo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+  object-position: center;
+
+  border-radius: 50%;
+}
+
+.branch-card:hover .branch-corner-logo {
+  transform:
+    scale(1.06)
+    rotate(-2deg);
+
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.36);
+}
+
+
+/* Branch number opposite side */
+
+.branch-card .branch-card-number {
+  top: 26px !important;
+  right: 26px !important;
+  left: auto !important;
+
+  z-index: 8;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .branch-corner-logo {
+    top: 19px;
+    left: 19px;
+
+    width: 72px;
+    height: 72px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .branch-corner-logo {
+    top: 16px;
+    left: 16px;
+
+    width: 64px;
+    height: 64px;
+
+    padding: 3px;
+  }
+
+  .branch-card .branch-card-number {
+    top: 18px !important;
+    right: 17px !important;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .branch-corner-logo {
+    top: 14px;
+    left: 14px;
+
+    width: 58px;
+    height: 58px;
+  }
+
+}
+
+/* =========================================================
+   FIXED PREMIUM EDITORIAL BRANCH CARDS
+   IMAGES WILL REMAIN VISIBLE
+========================================================= */
+
+.branch-grid {
+  gap: 20px !important;
+}
+
+
+/* Main card must remain the visual container */
+
+.branch-card {
+  position: relative !important;
+
+  overflow: hidden !important;
+
+  border: none !important;
+
+  background: #20150f !important;
+
+  box-shadow:
+    0 24px 65px rgba(44, 29, 20, 0.16) !important;
+
+  isolation: isolate !important;
+
+  transform: translateZ(0);
+
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s ease !important;
+}
+
+
+/* =========================================================
+   IMAGE LAYER FIX
+========================================================= */
+
+.branch-card-background {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  z-index: 0 !important;
+
+  display: block !important;
+
+  overflow: hidden !important;
+}
+
+
+.branch-card-background img {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  display: block !important;
+
+  object-fit: cover !important;
+  object-position: center top !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+
+  transform:
+    scale(1.01)
+    translateZ(0) !important;
+
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.6s ease !important;
+}
+
+
+.branch-card:hover
+.branch-card-background img {
+  transform:
+    scale(1.055)
+    translateZ(0) !important;
+}
+
+
+/* =========================================================
+   DARK OVERLAY
+========================================================= */
+
+.branch-card-overlay {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  z-index: 1 !important;
+
+  display: block !important;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(16, 9, 6, 0.94) 0%,
+      rgba(16, 9, 6, 0.55) 45%,
+      rgba(16, 9, 6, 0.08) 78%
+    ) !important;
+
+  pointer-events: none;
+}
+
+
+/* Premium thin inner frame */
+
+.branch-card-overlay::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 12px;
+
+  border:
+    1px solid rgba(230, 195, 126, 0.42);
+
+  pointer-events: none;
+}
+
+
+/* Top-left editorial corner */
+
+.branch-card-overlay::before {
+  content: "";
+
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  width: 40px;
+  height: 40px;
+
+  border-top:
+    2px solid rgba(232, 198, 130, 0.78);
+
+  border-left:
+    2px solid rgba(232, 198, 130, 0.78);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTENT LAYERS
+========================================================= */
+
+.branch-card-content {
+  position: absolute !important;
+
+  right: 30px !important;
+  bottom: 34px !important;
+  left: 30px !important;
+
+  z-index: 4 !important;
+}
+
+
+.branch-card-content::after {
+  content: "";
+
+  position: absolute;
+
+  right: -16px;
+  bottom: -18px;
+
+  width: 38px;
+  height: 38px;
+
+  border-right:
+    2px solid rgba(232, 198, 130, 0.62);
+
+  border-bottom:
+    2px solid rgba(232, 198, 130, 0.62);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   LOGO + NUMBER
+========================================================= */
+
+.branch-corner-logo {
+  position: absolute !important;
+
+  top: 20px !important;
+  left: 20px !important;
+
+  z-index: 6 !important;
+
+  width: 76px !important;
+  height: 76px !important;
+
+  padding: 4px !important;
+
+  display: grid !important;
+  place-items: center !important;
+
+  overflow: hidden !important;
+
+  border:
+    2px solid rgba(255, 255, 255, 0.94) !important;
+
+  border-radius: 50% !important;
+
+  background:
+    rgba(255, 253, 249, 0.96) !important;
+
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(191, 147, 72, 0.45) !important;
+}
+
+
+.branch-corner-logo img {
+  width: 100% !important;
+  height: 100% !important;
+
+  display: block !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  border-radius: 50% !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+.branch-card-number {
+  position: absolute !important;
+
+  top: 20px !important;
+  right: 20px !important;
+
+  z-index: 6 !important;
+
+  min-width: 32px;
+  height: 32px;
+
+  padding: 0 7px;
+
+  display: grid;
+  place-items: center;
+
+  color: #ffffff !important;
+
+  border:
+    1px solid rgba(255, 255, 255, 0.34);
+
+  background:
+    rgba(20, 12, 8, 0.35);
+
+  font-size: 7px !important;
+  letter-spacing: 1.1px !important;
+
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.branch-card:hover {
+  transform:
+    translateY(-8px) !important;
+
+  box-shadow:
+    0 36px 88px rgba(44, 29, 20, 0.24) !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .branch-grid {
+    gap: 18px !important;
+  }
+
+  .branch-corner-logo {
+    width: 70px !important;
+    height: 70px !important;
+
+    top: 18px !important;
+    left: 18px !important;
+  }
+
+  .branch-card-number {
+    top: 18px !important;
+    right: 18px !important;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .branch-grid {
+    gap: 18px !important;
+  }
+
+  .branch-card {
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+      0 18px 45px rgba(44, 29, 20, 0.16) !important;
+  }
+
+  .branch-card-overlay::after {
+    inset: 9px;
+  }
+
+  .branch-card-overlay::before {
+    top: 9px;
+    left: 9px;
+
+    width: 30px;
+    height: 30px;
+  }
+
+  .branch-card-content {
+    right: 22px !important;
+    bottom: 27px !important;
+    left: 22px !important;
+  }
+
+  .branch-card-content::after {
+    right: -12px;
+    bottom: -15px;
+
+    width: 30px;
+    height: 30px;
+  }
+
+  .branch-corner-logo {
+    top: 14px !important;
+    left: 14px !important;
+
+    width: 62px !important;
+    height: 62px !important;
+
+    padding: 3px !important;
+  }
+
+  .branch-card-number {
+    top: 14px !important;
+    right: 14px !important;
+
+    min-width: 29px;
+    height: 29px;
+
+    font-size: 6px !important;
+  }
+
+  .branch-card:hover {
+    transform: none !important;
+  }
+
+  .branch-card:active {
+    transform:
+      scale(0.99) !important;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .branch-corner-logo {
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+}
