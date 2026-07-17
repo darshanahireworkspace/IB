@@ -96,7 +96,7 @@ if (brandIntro) {
   brandIntroTimer =
     window.setTimeout(
       closeBrandIntro,
-      7000
+      5000
     );
 } else {
   /*

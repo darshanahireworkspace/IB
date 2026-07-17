@@ -14693,3 +14693,75 @@ a:focus-visible {
   }
 
 }
+
+/* ==========================================
+   WEDDING BADGE LOGO
+========================================== */
+
+.wedding-badge{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.wedding-badge-logo{
+
+    width:62px;
+    height:62px;
+
+    object-fit:contain;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    padding:3px;
+
+    box-shadow:
+    0 8px 20px rgba(0,0,0,.25);
+
+    transition:.4s;
+}
+
+.wedding-badge:hover .wedding-badge-logo{
+
+    transform:
+    scale(1.08)
+    rotate(-3deg);
+
+}
+
+.wedding-badge small{
+
+    color:rgba(255,255,255,.75);
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.wedding-badge-logo{
+
+    width:46px;
+    height:46px;
+
+}
+
+.wedding-badge small{
+
+    font-size:7px;
+    letter-spacing:1.5px;
+
+}
+
+}
