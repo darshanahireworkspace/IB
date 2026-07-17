@@ -334,6 +334,7 @@ internalLinks.forEach((link) => {
 const sections = [
   "home",
   "stores",
+  "offers",
   "collections",
   "wedding",
   "gallery",
@@ -1764,3 +1765,411 @@ window.setTimeout(
   unlockPageScroll,
   100
 );
+
+/* =========================================================
+   PREMIUM OFFERS INTEGRATION
+========================================================= */
+
+const topOfferBar =
+  document.getElementById("topOfferBar");
+
+const offerBarClose =
+  document.getElementById("offerBarClose");
+
+const offerBarStore =
+  document.getElementById("offerBarStore");
+
+const offerBarText =
+  document.getElementById("offerBarText");
+
+const offerBarContent =
+  document.querySelector(".offer-bar-content");
+
+const floatingOfferButton =
+  document.getElementById("floatingOfferButton");
+
+
+const rotatingOffers = [
+  {
+    store: "Indians Boutique",
+    text:
+      "Special wedding and menswear offers are now live."
+  },
+
+  {
+    store: "Indians NX",
+    text:
+      "Exclusive festive and ladies collection offers available."
+  },
+
+  {
+    store: "Indians Kids",
+    text:
+      "Special offers on kids party and occasion wear."
+  }
+];
+
+
+let currentOfferIndex = 0;
+let offerBarTimer = null;
+
+const offerBarDuration = 3500;
+
+
+/* Update top offer */
+
+function showTopOffer(index) {
+  if (!rotatingOffers.length) return;
+
+  currentOfferIndex =
+    (
+      index +
+      rotatingOffers.length
+    ) %
+    rotatingOffers.length;
+
+
+  offerBarContent?.classList.add(
+    "changing"
+  );
+
+
+  window.setTimeout(() => {
+
+    const selectedOffer =
+      rotatingOffers[currentOfferIndex];
+
+
+    if (offerBarStore) {
+      offerBarStore.textContent =
+        selectedOffer.store;
+    }
+
+
+    if (offerBarText) {
+      offerBarText.textContent =
+        selectedOffer.text;
+    }
+
+
+    offerBarContent?.classList.remove(
+      "changing"
+    );
+
+  }, 240);
+}
+
+
+/* Start rotating offers */
+
+function startOfferBarRotation() {
+  window.clearInterval(
+    offerBarTimer
+  );
+
+
+  offerBarTimer =
+    window.setInterval(() => {
+
+      showTopOffer(
+        currentOfferIndex + 1
+      );
+
+    }, offerBarDuration);
+}
+
+
+if (topOfferBar) {
+  showTopOffer(0);
+  startOfferBarRotation();
+}
+
+
+/* Close top bar */
+
+offerBarClose?.addEventListener(
+  "click",
+  () => {
+
+    topOfferBar?.classList.add(
+      "hidden"
+    );
+
+    window.clearInterval(
+      offerBarTimer
+    );
+
+    /*
+      Header पुन्हा top वर आणणे.
+    */
+
+    const siteHeader =
+      document.getElementById(
+        "siteHeader"
+      );
+
+    if (siteHeader) {
+      siteHeader.style.top = "0";
+    }
+
+  }
+);
+
+
+/* Floating button hide inside offer section */
+
+const offersSection =
+  document.getElementById("offers");
+
+
+if (
+  "IntersectionObserver" in window &&
+  offersSection &&
+  floatingOfferButton
+) {
+
+  const offersButtonObserver =
+    new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          floatingOfferButton.style.opacity =
+            entry.isIntersecting
+              ? "0"
+              : "1";
+
+          floatingOfferButton.style.pointerEvents =
+            entry.isIntersecting
+              ? "none"
+              : "auto";
+
+        });
+
+      },
+      {
+        threshold: 0.18
+      }
+    );
+
+
+  offersButtonObserver.observe(
+    offersSection
+  );
+
+}
+
+
+/* Pause when browser tab inactive */
+
+document.addEventListener(
+  "visibilitychange",
+  () => {
+
+    if (document.hidden) {
+      window.clearInterval(
+        offerBarTimer
+      );
+
+      return;
+    }
+
+
+    if (
+      topOfferBar &&
+      !topOfferBar.classList.contains(
+        "hidden"
+      )
+    ) {
+      startOfferBarRotation();
+    }
+
+  }
+);
+/* =========================================================
+   SMART HEADER
+   SCROLL DOWN = HIDE
+   SCROLL UP = SHOW
+========================================================= */
+
+const smartHeader =
+  document.getElementById("siteHeader");
+
+const smartOfferBar =
+  document.getElementById("topOfferBar");
+
+let previousScrollY =
+  window.scrollY;
+
+let smartHeaderFrameRequested =
+  false;
+
+const smartHeaderHideAfter =
+  140;
+
+const smartHeaderScrollTolerance =
+  7;
+
+
+function showSmartHeader() {
+  smartHeader?.classList.remove(
+    "header-hidden"
+  );
+
+  smartHeader?.classList.add(
+    "header-visible"
+  );
+
+  smartOfferBar?.classList.remove(
+    "offer-bar-hidden"
+  );
+}
+
+
+function hideSmartHeader() {
+  smartHeader?.classList.remove(
+    "header-visible"
+  );
+
+  smartHeader?.classList.add(
+    "header-hidden"
+  );
+
+  smartOfferBar?.classList.add(
+    "offer-bar-hidden"
+  );
+}
+
+
+function updateSmartHeader() {
+  const currentScrollY =
+    Math.max(window.scrollY, 0);
+
+  const scrollDifference =
+    currentScrollY -
+    previousScrollY;
+
+  const mobileMenuIsOpen =
+    document.body.classList.contains(
+      "menu-open"
+    );
+
+
+  /*
+    Page top वर header नेहमी visible.
+  */
+
+  if (
+    currentScrollY <=
+    smartHeaderHideAfter
+  ) {
+    showSmartHeader();
+
+    previousScrollY =
+      currentScrollY;
+
+    smartHeaderFrameRequested =
+      false;
+
+    return;
+  }
+
+
+  /*
+    Mobile menu open असेल तर header visible.
+  */
+
+  if (mobileMenuIsOpen) {
+    showSmartHeader();
+
+    previousScrollY =
+      currentScrollY;
+
+    smartHeaderFrameRequested =
+      false;
+
+    return;
+  }
+
+
+  /*
+    Tiny scroll movement ignore करतो.
+  */
+
+  if (
+    Math.abs(scrollDifference) <
+    smartHeaderScrollTolerance
+  ) {
+    smartHeaderFrameRequested =
+      false;
+
+    return;
+  }
+
+
+  /*
+    Down scroll = hide
+    Up scroll = show
+  */
+
+  if (scrollDifference > 0) {
+    hideSmartHeader();
+  } else {
+    showSmartHeader();
+  }
+
+
+  previousScrollY =
+    currentScrollY;
+
+  smartHeaderFrameRequested =
+    false;
+}
+
+
+function handleSmartHeaderScroll() {
+  if (smartHeaderFrameRequested) {
+    return;
+  }
+
+  smartHeaderFrameRequested =
+    true;
+
+  window.requestAnimationFrame(
+    updateSmartHeader
+  );
+}
+
+
+window.addEventListener(
+  "scroll",
+  handleSmartHeaderScroll,
+  {
+    passive: true
+  }
+);
+
+
+/*
+  Browser resize नंतर state reset.
+*/
+
+window.addEventListener(
+  "resize",
+  () => {
+    previousScrollY =
+      window.scrollY;
+
+    showSmartHeader();
+  },
+  {
+    passive: true
+  }
+);
+
+
+/*
+  Initial state.
+*/
+
+showSmartHeader();

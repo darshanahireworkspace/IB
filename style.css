@@ -14765,3 +14765,1079 @@ a:focus-visible {
 }
 
 }
+
+/* =========================================================
+   PREMIUM OFFERS INTEGRATION
+========================================================= */
+
+:root {
+  --offer-dark: #17100c;
+  --offer-dark-soft: #281a13;
+  --offer-cream: #f8f1e8;
+  --offer-gold: #b58a4d;
+  --offer-gold-light: #dfc282;
+}
+
+
+/* =========================================================
+   TOP OFFER BAR
+========================================================= */
+
+.top-offer-bar {
+  position: relative;
+
+  z-index: 1200;
+
+  width: 100%;
+
+  min-height: 38px;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      90deg,
+      #120c09,
+      #2b1a11 50%,
+      #120c09
+    );
+
+  overflow: hidden;
+
+  transition:
+    height 0.4s ease,
+    min-height 0.4s ease,
+    opacity 0.4s ease;
+}
+
+.top-offer-bar.hidden {
+  height: 0;
+  min-height: 0;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.top-offer-inner {
+  width: min(1380px, calc(100% - 9vw));
+
+  min-height: 38px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 15px;
+}
+
+.offer-live-dot {
+  width: 6px;
+  height: 6px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #e0bd76;
+
+  box-shadow:
+    0 0 0 5px rgba(224, 189, 118, 0.1);
+
+  animation:
+    offerLivePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes offerLivePulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.offer-bar-content {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+}
+
+.offer-bar-store {
+  color: var(--offer-gold-light);
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.6px;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+}
+
+.offer-bar-content strong {
+  overflow: hidden;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 8px;
+  font-weight: 400;
+
+  letter-spacing: 0.7px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.offer-bar-content.changing strong,
+.offer-bar-content.changing .offer-bar-store {
+  opacity: 0;
+
+  transform: translateY(5px);
+}
+
+.offer-bar-link {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #ffffff;
+
+  font-size: 6.5px;
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.offer-bar-link svg {
+  width: 13px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.offer-bar-link:hover svg {
+  transform: translateX(4px);
+}
+
+.offer-bar-close {
+  position: absolute;
+
+  top: 50%;
+  right: 18px;
+
+  z-index: 2;
+
+  width: 25px;
+  height: 25px;
+
+  display: grid;
+  place-items: center;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+
+  font-size: 17px;
+  line-height: 1;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.offer-bar-close:hover {
+  color: #ffffff;
+
+  transform:
+    translateY(-50%)
+    rotate(90deg);
+}
+
+
+/* Header offer barच्या खाली */
+
+.top-offer-bar:not(.hidden) + .site-header {
+  top: 38px !important;
+}
+
+
+/* =========================================================
+   OFFERS SECTION
+========================================================= */
+
+.offers-section {
+  position: relative;
+
+  padding:
+    clamp(105px, 11vw, 175px)
+    0;
+
+  overflow: hidden;
+
+  color: #291c15;
+
+  background:
+    radial-gradient(
+      circle at 9% 7%,
+      rgba(181, 138, 77, 0.13),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 92% 85%,
+      rgba(115, 72, 44, 0.08),
+      transparent 28%
+    ),
+    linear-gradient(
+      145deg,
+      #efe3d4,
+      #fffdf9 50%,
+      #eadac7
+    );
+}
+
+.offers-section::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: 4.5vw;
+  left: 4.5vw;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(181, 138, 77, 0.5),
+      transparent
+    );
+}
+
+.offers-decoration {
+  position: absolute;
+
+  border:
+    1px solid rgba(181, 138, 77, 0.12);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.offers-decoration-one {
+  top: -190px;
+  right: -120px;
+
+  width: 480px;
+  height: 480px;
+}
+
+.offers-decoration-two {
+  bottom: -150px;
+  left: -110px;
+
+  width: 360px;
+  height: 360px;
+}
+
+.offers-heading {
+  position: relative;
+
+  z-index: 2;
+
+  margin-bottom:
+    clamp(55px, 7vw, 90px);
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.25fr)
+    minmax(280px, 0.75fr);
+
+  align-items: end;
+
+  gap:
+    clamp(40px, 7vw, 105px);
+}
+
+.offers-heading h2 {
+  margin-top: 16px;
+
+  font-family:
+    var(--serif, "Cormorant Garamond", serif);
+
+  font-size:
+    clamp(55px, 6.4vw, 98px);
+
+  font-weight: 500;
+
+  line-height: 0.89;
+
+  letter-spacing: -2.5px;
+}
+
+.offers-heading h2 em {
+  display: block;
+
+  color: var(--offer-gold);
+
+  font-weight: 400;
+}
+
+.offers-heading-description {
+  max-width: 450px;
+
+  padding:
+    20px 0
+    20px 24px;
+
+  color: #796a60;
+
+  border-left:
+    1px solid var(--offer-gold);
+
+  font-family:
+    var(--serif, "Cormorant Garamond", serif);
+
+  font-size: 19px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   OFFER CARDS
+========================================================= */
+
+.offers-grid {
+  position: relative;
+
+  z-index: 2;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.offer-card {
+  position: relative;
+
+  min-height: 520px;
+
+  padding: 29px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      145deg,
+      #21150f,
+      #100b08
+    );
+
+  border:
+    1px solid rgba(181, 138, 77, 0.22);
+
+  box-shadow:
+    0 27px 75px rgba(44, 29, 20, 0.16);
+
+  isolation: isolate;
+
+  transition:
+    transform 0.55s
+    cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.55s ease;
+}
+
+.offer-card::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 10px;
+
+  z-index: 5;
+
+  border:
+    1px solid rgba(224, 191, 124, 0.25);
+
+  pointer-events: none;
+}
+
+.offer-card::after {
+  content: "";
+
+  position: absolute;
+
+  top: 10px;
+  left: 10px;
+
+  z-index: 6;
+
+  width: 42px;
+  height: 42px;
+
+  border-top:
+    2px solid rgba(224, 191, 124, 0.7);
+
+  border-left:
+    2px solid rgba(224, 191, 124, 0.7);
+
+  pointer-events: none;
+}
+
+.offer-card:hover {
+  transform: translateY(-9px);
+
+  box-shadow:
+    0 40px 95px rgba(44, 29, 20, 0.24);
+}
+
+.offer-card-glow {
+  position: absolute;
+
+  top: -100px;
+  right: -100px;
+
+  z-index: -1;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  background:
+    rgba(205, 159, 86, 0.12);
+
+  filter: blur(65px);
+
+  pointer-events: none;
+}
+
+.offer-card-nx {
+  background:
+    linear-gradient(
+      145deg,
+      #351d1e,
+      #160c0d
+    );
+}
+
+.offer-card-kids {
+  background:
+    linear-gradient(
+      145deg,
+      #332214,
+      #151009
+    );
+}
+
+.offer-card-top {
+  position: relative;
+
+  z-index: 3;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.offer-store-logo {
+  width: 82px;
+  height: 82px;
+
+  padding: 3px;
+
+  object-fit: contain;
+
+  border:
+    2px solid rgba(255, 255, 255, 0.92);
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 34px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(181, 138, 77, 0.4);
+}
+
+.offer-status {
+  padding:
+    8px 10px;
+
+  color: var(--offer-gold-light);
+
+  border:
+    1px solid rgba(224, 194, 130, 0.34);
+
+  background:
+    rgba(0, 0, 0, 0.18);
+
+  font-size: 6.5px;
+  font-weight: 700;
+
+  letter-spacing: 1.4px;
+
+  text-transform: uppercase;
+
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.offer-card-content {
+  position: absolute;
+
+  right: 29px;
+  bottom: 32px;
+  left: 29px;
+
+  z-index: 3;
+}
+
+.offer-card-content > small {
+  color: var(--offer-gold-light);
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+}
+
+.offer-card-content h3 {
+  margin:
+    14px 0 17px;
+
+  font-family:
+    var(--serif, "Cormorant Garamond", serif);
+
+  font-size:
+    clamp(40px, 3.5vw, 54px);
+
+  font-weight: 500;
+
+  line-height: 0.88;
+}
+
+.offer-card-content h3 span {
+  display: block;
+
+  margin-top: 9px;
+
+  color: var(--offer-gold-light);
+
+  font-weight: 400;
+}
+
+.offer-highlight {
+  width: fit-content;
+
+  padding:
+    8px 11px;
+
+  color: #1b120d;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e3c98f,
+      #b88949
+    );
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
+
+  text-transform: uppercase;
+}
+
+.offer-card-content > p {
+  max-width: 390px;
+
+  margin:
+    18px 0;
+
+  color: rgba(255, 255, 255, 0.59);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+.offer-tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-bottom: 23px;
+}
+
+.offer-tags span {
+  padding:
+    7px 9px;
+
+  color: rgba(255, 255, 255, 0.64);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.15);
+
+  font-size: 6px;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.offer-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+}
+
+.offer-validity {
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 6px;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.offer-action {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding-bottom: 6px;
+
+  color: #ffffff;
+
+  border-bottom:
+    1px solid var(--offer-gold-light);
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+}
+
+.offer-action svg {
+  width: 15px;
+
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.offer-action:hover svg {
+  transform: translateX(5px);
+}
+
+.offers-note {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 720px;
+
+  margin:
+    35px auto 0;
+
+  color: #817268;
+
+  font-size: 9px;
+
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   FLOATING OFFER BUTTON
+========================================================= */
+
+.floating-offer-button {
+  position: fixed;
+
+  right: 20px;
+  bottom: 24px;
+
+  z-index: 1800;
+
+  min-width: 132px;
+  height: 55px;
+
+  padding:
+    6px 14px 6px 6px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: #ffffff;
+
+  border:
+    1px solid rgba(224, 191, 124, 0.35);
+
+  border-radius: 999px;
+
+  background:
+    rgba(24, 15, 10, 0.92);
+
+  box-shadow:
+    0 16px 42px rgba(22, 14, 9, 0.25);
+
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.floating-offer-button:hover {
+  transform: translateY(-5px);
+}
+
+.floating-offer-icon {
+  width: 42px;
+  height: 42px;
+
+  display: grid;
+  place-items: center;
+
+  color: #1b120d;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #e2c887,
+      #b6894c
+    );
+
+  font-family:
+    var(--serif, "Cormorant Garamond", serif);
+
+  font-size: 22px;
+}
+
+.floating-offer-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-offer-copy small {
+  color: rgba(255, 255, 255, 0.45);
+
+  font-size: 5.5px;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.floating-offer-copy strong {
+  margin-top: 2px;
+
+  font-family:
+    var(--serif, "Cormorant Garamond", serif);
+
+  font-size: 18px;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .offers-heading {
+    grid-template-columns: 1fr;
+
+    gap: 25px;
+  }
+
+  .offers-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .offer-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  .top-offer-inner {
+    width: calc(100% - 60px);
+
+    justify-content: flex-start;
+
+    gap: 8px;
+  }
+
+  .offer-bar-content {
+    flex: 1;
+
+    display: block;
+  }
+
+  .offer-bar-store {
+    display: block;
+
+    margin-bottom: 2px;
+
+    font-size: 5px;
+  }
+
+  .offer-bar-content strong {
+    display: block;
+
+    font-size: 6px;
+  }
+
+  .offer-bar-link {
+    display: none;
+  }
+
+  .offer-bar-close {
+    right: 8px;
+  }
+
+  .offers-section {
+    padding:
+      82px 0;
+  }
+
+  .offers-section .container {
+    width:
+      calc(100% - 30px);
+  }
+
+  .offers-heading {
+    margin-bottom: 39px;
+  }
+
+  .offers-heading h2 {
+    font-size: 46px;
+
+    line-height: 0.94;
+
+    letter-spacing: -1.4px;
+  }
+
+  .offers-heading-description {
+    padding:
+      16px 0 16px 18px;
+
+    font-size: 15px;
+  }
+
+  .offers-grid {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+  }
+
+  .offer-card {
+    width: 100%;
+
+    min-height:
+      min(132vw, 520px);
+
+    padding: 23px;
+  }
+
+  .offer-card::before {
+    inset: 8px;
+  }
+
+  .offer-card::after {
+    top: 8px;
+    left: 8px;
+
+    width: 32px;
+    height: 32px;
+  }
+
+  .offer-store-logo {
+    width: 65px;
+    height: 65px;
+  }
+
+  .offer-card-content {
+    right: 23px;
+    bottom: 26px;
+    left: 23px;
+  }
+
+  .offer-card-content h3 {
+    font-size: 40px;
+  }
+
+  .floating-offer-button {
+    right: 12px;
+    bottom: 14px;
+
+    min-width: 50px;
+    width: 50px;
+    height: 50px;
+
+    padding: 4px;
+
+    border-radius: 50%;
+  }
+
+  .floating-offer-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .floating-offer-copy {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+  .offers-section .container {
+    width:
+      calc(100% - 22px);
+  }
+
+  .offer-card {
+    min-height: 470px;
+  }
+
+  .offer-card-content h3 {
+    font-size: 35px;
+  }
+
+  .offer-card-content > p {
+    font-size: 10px;
+  }
+
+}
+
+/* =========================================================
+   SMART HEADER — HIDE DOWN / SHOW UP
+========================================================= */
+
+.site-header {
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    box-shadow 0.35s ease !important;
+
+  will-change: transform;
+}
+
+.site-header.header-hidden {
+  transform: translateY(-110%) !important;
+}
+
+.site-header.header-visible {
+  transform: translateY(0) !important;
+}
+
+
+/* Offer bar असेल तर त्यालाही hide कर */
+
+.top-offer-bar {
+  transition:
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease !important;
+
+  will-change: transform;
+}
+
+.top-offer-bar.offer-bar-hidden {
+  transform: translateY(-110%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+
+/* Mobile menu open असताना header hide होऊ नये */
+
+body.menu-open .site-header {
+  transform: translateY(0) !important;
+}
+
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .top-offer-bar {
+    transition: none !important;
+  }
+}
+
