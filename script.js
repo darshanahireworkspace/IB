@@ -216,6 +216,9 @@ document.addEventListener(
 ========================================================= */
 
 function openMobileMenu() {
+
+  header?.classList.remove("header-hidden");
+header?.classList.add("header-visible");
   menuToggle?.classList.add("active");
   mobileMenu?.classList.add("open");
   body.classList.add("menu-open");
@@ -363,9 +366,10 @@ function updateScrollUI() {
     document.documentElement.scrollTop ||
     0;
 
-  /*
-    Header background update.
-  */
+
+  /* =====================================================
+     HEADER BACKGROUND
+  ===================================================== */
 
   header?.classList.toggle(
     "scrolled",
@@ -373,9 +377,82 @@ function updateScrollUI() {
   );
 
 
-  /*
-    Active section शोधणे.
-  */
+  /* =====================================================
+     MOBILE HEADER
+     Scroll down = completely hide
+     Scroll up = show
+  ===================================================== */
+
+  if (
+    header &&
+    window.innerWidth <= 760 &&
+    !body.classList.contains("menu-open")
+  ) {
+    const scrollDifference =
+      scrollPosition - lastScrollPosition;
+
+    /*
+      Page च्या सुरुवातीला header नेहमी visible.
+    */
+
+    if (scrollPosition <= 20) {
+      header.classList.remove(
+        "header-hidden"
+      );
+
+      header.classList.add(
+        "header-visible"
+      );
+    }
+
+    /*
+      खाली scroll केल्यावर पूर्ण header hide.
+      6px threshold मुळे छोट्या finger movement वर
+      header सतत हलणार नाही.
+    */
+
+    else if (scrollDifference > 6) {
+      header.classList.add(
+        "header-hidden"
+      );
+
+      header.classList.remove(
+        "header-visible"
+      );
+    }
+
+    /*
+      वर scroll केल्यावर header पुन्हा show.
+    */
+
+    else if (scrollDifference < -6) {
+      header.classList.remove(
+        "header-hidden"
+      );
+
+      header.classList.add(
+        "header-visible"
+      );
+    }
+  } else {
+    /*
+      Desktop वर किंवा menu open असताना
+      header hide होणार नाही.
+    */
+
+    header?.classList.remove(
+      "header-hidden"
+    );
+
+    header?.classList.add(
+      "header-visible"
+    );
+  }
+
+
+  /* =====================================================
+     ACTIVE NAVIGATION
+  ===================================================== */
 
   let nextActiveSection = "home";
 
@@ -386,6 +463,7 @@ function updateScrollUI() {
     scrollPosition +
     headerHeight +
     100;
+
 
   for (
     let index = 0;
@@ -399,16 +477,13 @@ function updateScrollUI() {
       activationPosition >=
       section.offsetTop
     ) {
-      nextActiveSection = section.id;
+      nextActiveSection =
+        section.id;
     } else {
       break;
     }
   }
 
-
-  /*
-    Section बदलली असेल तेव्हाच nav classes update.
-  */
 
   if (
     nextActiveSection !==
@@ -417,13 +492,15 @@ function updateScrollUI() {
     activeSectionId =
       nextActiveSection;
 
-    desktopNavLinks.forEach((link) => {
-      link.classList.toggle(
-        "active",
-        link.getAttribute("href") ===
-          `#${activeSectionId}`
-      );
-    });
+    desktopNavLinks.forEach(
+      (link) => {
+        link.classList.toggle(
+          "active",
+          link.getAttribute("href") ===
+            `#${activeSectionId}`
+        );
+      }
+    );
   }
 
 
